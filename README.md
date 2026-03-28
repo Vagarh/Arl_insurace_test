@@ -2,6 +2,8 @@
 
 Prueba técnica: análisis de 1,841 quejas de incapacidad temporal (Ene–Jun 2025) con NLP, ML explicable, dashboard interactivo y pipeline de automatización.
 
+**Dashboard en producción:** https://dashboard-xi-nine-20.vercel.app
+
 ---
 
 ## Estructura del proyecto
