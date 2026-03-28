@@ -3,7 +3,7 @@
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine, BarChart, Bar, Cell,
-  LineChart, Line, Legend
+  Line
 } from "recharts";
 import { TrendingUp, AlertTriangle, Users, Activity } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -64,6 +64,22 @@ const MesLabel: Record<string, string> = {
   "2025-09-01": "Sep",
 };
 
+// Datos estáticos representativos — se reemplazan con output real del NB05 cuando esté disponible
+const FORECAST_FALLBACK: ForecastRow[] = [
+  { fecha: "2025-06-01", forecast_base: 381, ic_bajo: 351, ic_alto: 411, escenario_optimista: 343, escenario_pesimista: 418 },
+  { fecha: "2025-07-01", forecast_base: 404, ic_bajo: 368, ic_alto: 440, escenario_optimista: 351, escenario_pesimista: 447 },
+  { fecha: "2025-08-01", forecast_base: 428, ic_bajo: 385, ic_alto: 471, escenario_optimista: 358, escenario_pesimista: 478 },
+  { fecha: "2025-09-01", forecast_base: 453, ic_bajo: 403, ic_alto: 503, escenario_optimista: 364, escenario_pesimista: 511 },
+];
+
+const ALERTAS_FALLBACK = {
+  forecast_proximo_mes: 404,
+  umbral_alerta: 369,
+  umbral_critico: 450,
+  clientes_criticos: 99,
+  clientes_riesgo_legal: 23,
+};
+
 const CustomForecastTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
@@ -96,8 +112,8 @@ export default function Prediccion() {
   const [sim, setSim] = useState<SimResumen | null>(null);
 
   useEffect(() => {
-    fetch("/data/forecast_volumen.json").then(r => r.json()).then(setForecast).catch(() => {});
-    fetch("/data/alertas.json").then(r => r.json()).then(setAlertas).catch(() => {});
+    fetch("/data/forecast_volumen.json").then(r => r.json()).then(setForecast).catch(() => setForecast(FORECAST_FALLBACK));
+    fetch("/data/alertas.json").then(r => r.json()).then(setAlertas).catch(() => setAlertas(ALERTAS_FALLBACK));
     fetch("/data/resumen_simulacion.json").then(r => r.json()).then(setSim).catch(() => {});
   }, []);
 
