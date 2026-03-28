@@ -1,0 +1,30 @@
+# Datos sensibles — no subir al repo
+req/BD_Quejas_Analitica.xlsx
+
+# Dependencias y builds
+dashboard/node_modules/
+dashboard/.next/
+
+# Modelo binario entrenado (generado por NB04)
+src/modelo_scoring.joblib
+
+# Imágenes generadas (outputs de notebooks)
+resume/images/
+
+# OS y herramientas locales
+.DS_Store
+**/.DS_Store
+.claude/
+
+# Backups
+*.backup
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Archivos temporales de pipeline
+pipeline/powerbi/outputs/
+/tmp/sura_*.parquet

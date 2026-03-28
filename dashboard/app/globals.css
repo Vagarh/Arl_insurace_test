@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sura-navy:   #00216e;
+    --sura-blue:   #0049cb;
+    --sura-action: #085efe;
+    --sura-ice:    #dce1ff;
+    --sura-frost:  #f4f2ff;
+    --sura-yellow: #e6eb2d;
+    --surface:     #fbf8ff;
+    --surface-low: #f4f2ff;
+    --surface-mid: #edecff;
+    --surface-hi:  #e7e6fb;
+    --border:      #c4c5d5;
+    --muted:       #444653;
+    --radius:      0.5rem;
+  }
+  body {
+    @apply bg-[#fbf8ff] text-[#191b29] font-sans antialiased;
+  }
+  * { box-sizing: border-box; }
+}
+
+@layer components {
+  /* Cards */
+  .card {
+    @apply bg-white rounded-xl border border-[#e1e1f6] p-6;
+    box-shadow: 0 20px 40px rgba(25,27,41,0.04);
+  }
+  .card-hover {
+    @apply card transition-all duration-300 hover:-translate-y-1;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-blue   { @apply badge bg-[#dce1ff] text-[#00216e]; }
+  .badge-red    { @apply badge bg-red-50 text-red-700; }
+  .badge-green  { @apply badge bg-green-50 text-green-700; }
+  .badge-yellow { @apply badge bg-[#e6eb2d]/20 text-[#484a00]; }
+  .badge-gray   { @apply badge bg-[#f4f2ff] text-[#444653]; }
+
+  /* Typography helpers */
+  .section-title { @apply text-2xl font-bold text-[#00216e]; }
+  .section-sub   { @apply text-sm text-[#444653]; }
+  .table-header  { @apply text-[10px] font-black text-[#00216e] uppercase tracking-widest; }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+           text-[#444653] hover:text-[#00216e] hover:bg-white/60 text-sm;
+  }
+  .nav-item.active {
+    @apply bg-white text-[#0049cb] font-semibold shadow-sm translate-x-0.5;
+  }
+}
+
+@layer utilities {
+  .font-black { font-weight: 900; }
+
+  /* Page-in animation (from nextjs-shadcn skill) */
+  @keyframes page-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-page-in {
+    animation: page-in 0.35s ease-out both;
+  }
+
+  /* Fade-up for staggered cards */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fade-up 0.4s ease-out both; }
+  .delay-75  { animation-delay: 75ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-225 { animation-delay: 225ms; }
+  .delay-300 { animation-delay: 300ms; }
+}

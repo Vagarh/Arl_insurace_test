@@ -1,0 +1,34 @@
+[
+  {
+    "fecha":"2025-06-01",
+    "forecast_base":384,
+    "ic_bajo":343,
+    "ic_alto":426,
+    "escenario_optimista":345,
+    "escenario_pesimista":441
+  },
+  {
+    "fecha":"2025-07-01",
+    "forecast_base":401,
+    "ic_bajo":339,
+    "ic_alto":467,
+    "escenario_optimista":361,
+    "escenario_pesimista":461
+  },
+  {
+    "fecha":"2025-08-01",
+    "forecast_base":415,
+    "ic_bajo":338,
+    "ic_alto":490,
+    "escenario_optimista":373,
+    "escenario_pesimista":477
+  },
+  {
+    "fecha":"2025-09-01",
+    "forecast_base":426,
+    "ic_bajo":337,
+    "ic_alto":520,
+    "escenario_optimista":383,
+    "escenario_pesimista":490
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "fecha_actualizacion": "2026-03-27",
+  "umbral_alerta": 369,
+  "umbral_critico": 406,
+  "clientes_criticos": 99,
+  "clientes_riesgo_legal": 68,
+  "forecast_proximo_mes": 384
+}

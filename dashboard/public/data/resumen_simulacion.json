@@ -1,0 +1,15 @@
+{
+  "parametros_base": {
+    "entrada_base": 337,
+    "capacidad": 308,
+    "tasa_escalamiento": 0.085,
+    "factor_carga": 0.003,
+    "tasa_retroalim": 0.15,
+    "tasa_insatisfaccion": 0.45,
+    "tasa_drenaje_C": 0.3
+  },
+  "equilibrio_asis_mes12": 169.18001539611427,
+  "equilibrio_tobe_mes12": 128.88761539078982,
+  "reduccion_pct": 23.816288177409568,
+  "sensibilidad_mayor": "Tasa entrada de quejas"
+}

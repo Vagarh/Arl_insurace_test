@@ -1,0 +1,1814 @@
+{
+  "AS-IS": [
+    {
+      "mes": 0.0,
+      "backlog_quejas": 50.0,
+      "clientes_insatisfechos": 277.0,
+      "presion_externa": 10.0
+    },
+    {
+      "mes": 0.5,
+      "backlog_quejas": 168.1,
+      "clientes_insatisfechos": 239.7,
+      "presion_externa": 16.6
+    },
+    {
+      "mes": 1.0,
+      "backlog_quejas": 230.5,
+      "clientes_insatisfechos": 207.4,
+      "presion_externa": 32.7
+    },
+    {
+      "mes": 1.4,
+      "backlog_quejas": 255.3,
+      "clientes_insatisfechos": 179.4,
+      "presion_externa": 61.5
+    },
+    {
+      "mes": 1.9,
+      "backlog_quejas": 252.6,
+      "clientes_insatisfechos": 155.3,
+      "presion_externa": 107.5
+    },
+    {
+      "mes": 2.4,
+      "backlog_quejas": 230.0,
+      "clientes_insatisfechos": 134.3,
+      "presion_externa": 172.7
+    },
+    {
+      "mes": 2.9,
+      "backlog_quejas": 200.2,
+      "clientes_insatisfechos": 116.2,
+      "presion_externa": 250.3
+    },
+    {
+      "mes": 3.4,
+      "backlog_quejas": 185.5,
+      "clientes_insatisfechos": 100.6,
+      "presion_externa": 315.4
+    },
+    {
+      "mes": 3.9,
+      "backlog_quejas": 179.3,
+      "clientes_insatisfechos": 87.0,
+      "presion_externa": 370.1
+    },
+    {
+      "mes": 4.3,
+      "backlog_quejas": 176.3,
+      "clientes_insatisfechos": 75.3,
+      "presion_externa": 417.7
+    },
+    {
+      "mes": 4.8,
+      "backlog_quejas": 174.7,
+      "clientes_insatisfechos": 65.2,
+      "presion_externa": 460.0
+    },
+    {
+      "mes": 5.3,
+      "backlog_quejas": 173.6,
+      "clientes_insatisfechos": 56.4,
+      "presion_externa": 497.7
+    },
+    {
+      "mes": 5.8,
+      "backlog_quejas": 172.9,
+      "clientes_insatisfechos": 48.8,
+      "presion_externa": 531.6
+    },
+    {
+      "mes": 6.3,
+      "backlog_quejas": 172.2,
+      "clientes_insatisfechos": 42.2,
+      "presion_externa": 562.1
+    },
+    {
+      "mes": 6.8,
+      "backlog_quejas": 171.7,
+      "clientes_insatisfechos": 36.5,
+      "presion_externa": 589.5
+    },
+    {
+      "mes": 7.2,
+      "backlog_quejas": 171.3,
+      "clientes_insatisfechos": 31.6,
+      "presion_externa": 614.1
+    },
+    {
+      "mes": 7.7,
+      "backlog_quejas": 170.9,
+      "clientes_insatisfechos": 27.3,
+      "presion_externa": 636.3
+    },
+    {
+      "mes": 8.2,
+      "backlog_quejas": 170.6,
+      "clientes_insatisfechos": 23.7,
+      "presion_externa": 656.3
+    },
+    {
+      "mes": 8.7,
+      "backlog_quejas": 170.3,
+      "clientes_insatisfechos": 20.5,
+      "presion_externa": 674.3
+    },
+    {
+      "mes": 9.2,
+      "backlog_quejas": 170.1,
+      "clientes_insatisfechos": 17.7,
+      "presion_externa": 690.6
+    },
+    {
+      "mes": 9.6,
+      "backlog_quejas": 169.9,
+      "clientes_insatisfechos": 15.3,
+      "presion_externa": 705.2
+    },
+    {
+      "mes": 10.1,
+      "backlog_quejas": 169.7,
+      "clientes_insatisfechos": 13.3,
+      "presion_externa": 718.4
+    },
+    {
+      "mes": 10.6,
+      "backlog_quejas": 169.5,
+      "clientes_insatisfechos": 11.5,
+      "presion_externa": 730.3
+    },
+    {
+      "mes": 11.1,
+      "backlog_quejas": 169.4,
+      "clientes_insatisfechos": 9.9,
+      "presion_externa": 741.1
+    },
+    {
+      "mes": 11.6,
+      "backlog_quejas": 169.3,
+      "clientes_insatisfechos": 8.6,
+      "presion_externa": 750.8
+    },
+    {
+      "mes": 12.1,
+      "backlog_quejas": 169.2,
+      "clientes_insatisfechos": 7.4,
+      "presion_externa": 759.5
+    },
+    {
+      "mes": 12.5,
+      "backlog_quejas": 169.1,
+      "clientes_insatisfechos": 6.4,
+      "presion_externa": 767.5
+    },
+    {
+      "mes": 13.0,
+      "backlog_quejas": 169.0,
+      "clientes_insatisfechos": 5.6,
+      "presion_externa": 774.6
+    },
+    {
+      "mes": 13.5,
+      "backlog_quejas": 168.9,
+      "clientes_insatisfechos": 4.8,
+      "presion_externa": 781.1
+    },
+    {
+      "mes": 14.0,
+      "backlog_quejas": 168.9,
+      "clientes_insatisfechos": 4.2,
+      "presion_externa": 786.9
+    },
+    {
+      "mes": 14.5,
+      "backlog_quejas": 168.8,
+      "clientes_insatisfechos": 3.6,
+      "presion_externa": 792.2
+    },
+    {
+      "mes": 15.0,
+      "backlog_quejas": 168.8,
+      "clientes_insatisfechos": 3.1,
+      "presion_externa": 796.9
+    },
+    {
+      "mes": 15.4,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.7,
+      "presion_externa": 801.2
+    },
+    {
+      "mes": 15.9,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.3,
+      "presion_externa": 805.1
+    },
+    {
+      "mes": 16.4,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.0,
+      "presion_externa": 808.7
+    },
+    {
+      "mes": 16.9,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 1.7,
+      "presion_externa": 811.8
+    },
+    {
+      "mes": 17.4,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.5,
+      "presion_externa": 814.7
+    },
+    {
+      "mes": 17.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.3,
+      "presion_externa": 817.3
+    },
+    {
+      "mes": 18.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.1,
+      "presion_externa": 819.7
+    },
+    {
+      "mes": 18.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.0,
+      "presion_externa": 821.8
+    },
+    {
+      "mes": 19.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.8,
+      "presion_externa": 823.8
+    },
+    {
+      "mes": 19.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.7,
+      "presion_externa": 825.5
+    },
+    {
+      "mes": 20.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.6,
+      "presion_externa": 827.1
+    },
+    {
+      "mes": 20.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 828.6
+    },
+    {
+      "mes": 21.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 829.9
+    },
+    {
+      "mes": 21.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 831.0
+    },
+    {
+      "mes": 22.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 832.1
+    },
+    {
+      "mes": 22.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 833.1
+    },
+    {
+      "mes": 23.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 834.0
+    },
+    {
+      "mes": 23.6,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.2,
+      "presion_externa": 834.8
+    }
+  ],
+  "I1: Portal tracking": [
+    {
+      "mes": 0.0,
+      "backlog_quejas": 50.0,
+      "clientes_insatisfechos": 277.0,
+      "presion_externa": 10.0
+    },
+    {
+      "mes": 0.5,
+      "backlog_quejas": 124.5,
+      "clientes_insatisfechos": 239.7,
+      "presion_externa": 14.9
+    },
+    {
+      "mes": 1.0,
+      "backlog_quejas": 163.8,
+      "clientes_insatisfechos": 207.4,
+      "presion_externa": 24.9
+    },
+    {
+      "mes": 1.4,
+      "backlog_quejas": 180.9,
+      "clientes_insatisfechos": 179.4,
+      "presion_externa": 40.4
+    },
+    {
+      "mes": 1.9,
+      "backlog_quejas": 183.7,
+      "clientes_insatisfechos": 155.3,
+      "presion_externa": 62.1
+    },
+    {
+      "mes": 2.4,
+      "backlog_quejas": 177.0,
+      "clientes_insatisfechos": 134.3,
+      "presion_externa": 90.3
+    },
+    {
+      "mes": 2.9,
+      "backlog_quejas": 164.7,
+      "clientes_insatisfechos": 116.2,
+      "presion_externa": 124.4
+    },
+    {
+      "mes": 3.4,
+      "backlog_quejas": 149.7,
+      "clientes_insatisfechos": 100.6,
+      "presion_externa": 163.2
+    },
+    {
+      "mes": 3.9,
+      "backlog_quejas": 134.4,
+      "clientes_insatisfechos": 87.0,
+      "presion_externa": 204.7
+    },
+    {
+      "mes": 4.3,
+      "backlog_quejas": 122.9,
+      "clientes_insatisfechos": 75.3,
+      "presion_externa": 244.4
+    },
+    {
+      "mes": 4.8,
+      "backlog_quejas": 117.8,
+      "clientes_insatisfechos": 65.2,
+      "presion_externa": 277.1
+    },
+    {
+      "mes": 5.3,
+      "backlog_quejas": 115.5,
+      "clientes_insatisfechos": 56.4,
+      "presion_externa": 305.1
+    },
+    {
+      "mes": 5.8,
+      "backlog_quejas": 114.2,
+      "clientes_insatisfechos": 48.8,
+      "presion_externa": 329.9
+    },
+    {
+      "mes": 6.3,
+      "backlog_quejas": 113.4,
+      "clientes_insatisfechos": 42.2,
+      "presion_externa": 351.8
+    },
+    {
+      "mes": 6.8,
+      "backlog_quejas": 112.8,
+      "clientes_insatisfechos": 36.5,
+      "presion_externa": 371.5
+    },
+    {
+      "mes": 7.2,
+      "backlog_quejas": 112.3,
+      "clientes_insatisfechos": 31.6,
+      "presion_externa": 389.1
+    },
+    {
+      "mes": 7.7,
+      "backlog_quejas": 111.9,
+      "clientes_insatisfechos": 27.3,
+      "presion_externa": 404.9
+    },
+    {
+      "mes": 8.2,
+      "backlog_quejas": 111.6,
+      "clientes_insatisfechos": 23.7,
+      "presion_externa": 419.0
+    },
+    {
+      "mes": 8.7,
+      "backlog_quejas": 111.3,
+      "clientes_insatisfechos": 20.5,
+      "presion_externa": 431.7
+    },
+    {
+      "mes": 9.2,
+      "backlog_quejas": 111.1,
+      "clientes_insatisfechos": 17.7,
+      "presion_externa": 443.2
+    },
+    {
+      "mes": 9.6,
+      "backlog_quejas": 110.9,
+      "clientes_insatisfechos": 15.3,
+      "presion_externa": 453.4
+    },
+    {
+      "mes": 10.1,
+      "backlog_quejas": 110.7,
+      "clientes_insatisfechos": 13.3,
+      "presion_externa": 462.7
+    },
+    {
+      "mes": 10.6,
+      "backlog_quejas": 110.5,
+      "clientes_insatisfechos": 11.5,
+      "presion_externa": 471.0
+    },
+    {
+      "mes": 11.1,
+      "backlog_quejas": 110.4,
+      "clientes_insatisfechos": 9.9,
+      "presion_externa": 478.5
+    },
+    {
+      "mes": 11.6,
+      "backlog_quejas": 110.3,
+      "clientes_insatisfechos": 8.6,
+      "presion_externa": 485.2
+    },
+    {
+      "mes": 12.1,
+      "backlog_quejas": 110.2,
+      "clientes_insatisfechos": 7.4,
+      "presion_externa": 491.3
+    },
+    {
+      "mes": 12.5,
+      "backlog_quejas": 110.1,
+      "clientes_insatisfechos": 6.4,
+      "presion_externa": 496.7
+    },
+    {
+      "mes": 13.0,
+      "backlog_quejas": 110.0,
+      "clientes_insatisfechos": 5.6,
+      "presion_externa": 501.7
+    },
+    {
+      "mes": 13.5,
+      "backlog_quejas": 109.9,
+      "clientes_insatisfechos": 4.8,
+      "presion_externa": 506.1
+    },
+    {
+      "mes": 14.0,
+      "backlog_quejas": 109.9,
+      "clientes_insatisfechos": 4.2,
+      "presion_externa": 510.1
+    },
+    {
+      "mes": 14.5,
+      "backlog_quejas": 109.8,
+      "clientes_insatisfechos": 3.6,
+      "presion_externa": 513.7
+    },
+    {
+      "mes": 15.0,
+      "backlog_quejas": 109.8,
+      "clientes_insatisfechos": 3.1,
+      "presion_externa": 517.0
+    },
+    {
+      "mes": 15.4,
+      "backlog_quejas": 109.8,
+      "clientes_insatisfechos": 2.7,
+      "presion_externa": 519.9
+    },
+    {
+      "mes": 15.9,
+      "backlog_quejas": 109.7,
+      "clientes_insatisfechos": 2.3,
+      "presion_externa": 522.6
+    },
+    {
+      "mes": 16.4,
+      "backlog_quejas": 109.7,
+      "clientes_insatisfechos": 2.0,
+      "presion_externa": 524.9
+    },
+    {
+      "mes": 16.9,
+      "backlog_quejas": 109.7,
+      "clientes_insatisfechos": 1.7,
+      "presion_externa": 527.1
+    },
+    {
+      "mes": 17.4,
+      "backlog_quejas": 109.7,
+      "clientes_insatisfechos": 1.5,
+      "presion_externa": 529.1
+    },
+    {
+      "mes": 17.8,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 1.3,
+      "presion_externa": 530.8
+    },
+    {
+      "mes": 18.3,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 1.1,
+      "presion_externa": 532.4
+    },
+    {
+      "mes": 18.8,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 1.0,
+      "presion_externa": 533.9
+    },
+    {
+      "mes": 19.3,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.8,
+      "presion_externa": 535.2
+    },
+    {
+      "mes": 19.8,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.7,
+      "presion_externa": 536.3
+    },
+    {
+      "mes": 20.3,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.6,
+      "presion_externa": 537.4
+    },
+    {
+      "mes": 20.7,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 538.4
+    },
+    {
+      "mes": 21.2,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 539.2
+    },
+    {
+      "mes": 21.7,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 540.0
+    },
+    {
+      "mes": 22.2,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 540.7
+    },
+    {
+      "mes": 22.7,
+      "backlog_quejas": 109.6,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 541.4
+    },
+    {
+      "mes": 23.2,
+      "backlog_quejas": 109.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 542.0
+    },
+    {
+      "mes": 23.6,
+      "backlog_quejas": 109.5,
+      "clientes_insatisfechos": 0.2,
+      "presion_externa": 542.5
+    }
+  ],
+  "I2: Tracking + Notif.": [
+    {
+      "mes": 0.0,
+      "backlog_quejas": 50.0,
+      "clientes_insatisfechos": 277.0,
+      "presion_externa": 10.0
+    },
+    {
+      "mes": 0.5,
+      "backlog_quejas": 105.7,
+      "clientes_insatisfechos": 239.7,
+      "presion_externa": 14.2
+    },
+    {
+      "mes": 1.0,
+      "backlog_quejas": 134.8,
+      "clientes_insatisfechos": 207.4,
+      "presion_externa": 21.9
+    },
+    {
+      "mes": 1.4,
+      "backlog_quejas": 147.6,
+      "clientes_insatisfechos": 179.4,
+      "presion_externa": 33.1
+    },
+    {
+      "mes": 1.9,
+      "backlog_quejas": 150.4,
+      "clientes_insatisfechos": 155.3,
+      "presion_externa": 47.7
+    },
+    {
+      "mes": 2.4,
+      "backlog_quejas": 146.9,
+      "clientes_insatisfechos": 134.3,
+      "presion_externa": 65.6
+    },
+    {
+      "mes": 2.9,
+      "backlog_quejas": 139.8,
+      "clientes_insatisfechos": 116.2,
+      "presion_externa": 86.4
+    },
+    {
+      "mes": 3.4,
+      "backlog_quejas": 130.9,
+      "clientes_insatisfechos": 100.6,
+      "presion_externa": 109.7
+    },
+    {
+      "mes": 3.9,
+      "backlog_quejas": 121.4,
+      "clientes_insatisfechos": 87.0,
+      "presion_externa": 134.6
+    },
+    {
+      "mes": 4.3,
+      "backlog_quejas": 112.2,
+      "clientes_insatisfechos": 75.3,
+      "presion_externa": 160.4
+    },
+    {
+      "mes": 4.8,
+      "backlog_quejas": 103.7,
+      "clientes_insatisfechos": 65.2,
+      "presion_externa": 186.4
+    },
+    {
+      "mes": 5.3,
+      "backlog_quejas": 96.3,
+      "clientes_insatisfechos": 56.4,
+      "presion_externa": 212.1
+    },
+    {
+      "mes": 5.8,
+      "backlog_quejas": 91.3,
+      "clientes_insatisfechos": 48.8,
+      "presion_externa": 235.5
+    },
+    {
+      "mes": 6.3,
+      "backlog_quejas": 89.0,
+      "clientes_insatisfechos": 42.2,
+      "presion_externa": 255.2
+    },
+    {
+      "mes": 6.8,
+      "backlog_quejas": 87.9,
+      "clientes_insatisfechos": 36.5,
+      "presion_externa": 272.4
+    },
+    {
+      "mes": 7.2,
+      "backlog_quejas": 87.2,
+      "clientes_insatisfechos": 31.6,
+      "presion_externa": 287.6
+    },
+    {
+      "mes": 7.7,
+      "backlog_quejas": 86.7,
+      "clientes_insatisfechos": 27.3,
+      "presion_externa": 301.1
+    },
+    {
+      "mes": 8.2,
+      "backlog_quejas": 86.4,
+      "clientes_insatisfechos": 23.7,
+      "presion_externa": 313.2
+    },
+    {
+      "mes": 8.7,
+      "backlog_quejas": 86.1,
+      "clientes_insatisfechos": 20.5,
+      "presion_externa": 324.0
+    },
+    {
+      "mes": 9.2,
+      "backlog_quejas": 85.8,
+      "clientes_insatisfechos": 17.7,
+      "presion_externa": 333.8
+    },
+    {
+      "mes": 9.6,
+      "backlog_quejas": 85.6,
+      "clientes_insatisfechos": 15.3,
+      "presion_externa": 342.5
+    },
+    {
+      "mes": 10.1,
+      "backlog_quejas": 85.4,
+      "clientes_insatisfechos": 13.3,
+      "presion_externa": 350.3
+    },
+    {
+      "mes": 10.6,
+      "backlog_quejas": 85.3,
+      "clientes_insatisfechos": 11.5,
+      "presion_externa": 357.3
+    },
+    {
+      "mes": 11.1,
+      "backlog_quejas": 85.1,
+      "clientes_insatisfechos": 9.9,
+      "presion_externa": 363.6
+    },
+    {
+      "mes": 11.6,
+      "backlog_quejas": 85.0,
+      "clientes_insatisfechos": 8.6,
+      "presion_externa": 369.3
+    },
+    {
+      "mes": 12.1,
+      "backlog_quejas": 84.9,
+      "clientes_insatisfechos": 7.4,
+      "presion_externa": 374.4
+    },
+    {
+      "mes": 12.5,
+      "backlog_quejas": 84.8,
+      "clientes_insatisfechos": 6.4,
+      "presion_externa": 379.0
+    },
+    {
+      "mes": 13.0,
+      "backlog_quejas": 84.7,
+      "clientes_insatisfechos": 5.6,
+      "presion_externa": 383.1
+    },
+    {
+      "mes": 13.5,
+      "backlog_quejas": 84.7,
+      "clientes_insatisfechos": 4.8,
+      "presion_externa": 386.8
+    },
+    {
+      "mes": 14.0,
+      "backlog_quejas": 84.6,
+      "clientes_insatisfechos": 4.2,
+      "presion_externa": 390.2
+    },
+    {
+      "mes": 14.5,
+      "backlog_quejas": 84.6,
+      "clientes_insatisfechos": 3.6,
+      "presion_externa": 393.2
+    },
+    {
+      "mes": 15.0,
+      "backlog_quejas": 84.5,
+      "clientes_insatisfechos": 3.1,
+      "presion_externa": 395.9
+    },
+    {
+      "mes": 15.4,
+      "backlog_quejas": 84.5,
+      "clientes_insatisfechos": 2.7,
+      "presion_externa": 398.4
+    },
+    {
+      "mes": 15.9,
+      "backlog_quejas": 84.5,
+      "clientes_insatisfechos": 2.3,
+      "presion_externa": 400.6
+    },
+    {
+      "mes": 16.4,
+      "backlog_quejas": 84.4,
+      "clientes_insatisfechos": 2.0,
+      "presion_externa": 402.6
+    },
+    {
+      "mes": 16.9,
+      "backlog_quejas": 84.4,
+      "clientes_insatisfechos": 1.7,
+      "presion_externa": 404.4
+    },
+    {
+      "mes": 17.4,
+      "backlog_quejas": 84.4,
+      "clientes_insatisfechos": 1.5,
+      "presion_externa": 406.0
+    },
+    {
+      "mes": 17.8,
+      "backlog_quejas": 84.4,
+      "clientes_insatisfechos": 1.3,
+      "presion_externa": 407.4
+    },
+    {
+      "mes": 18.3,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 1.1,
+      "presion_externa": 408.8
+    },
+    {
+      "mes": 18.8,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 1.0,
+      "presion_externa": 410.0
+    },
+    {
+      "mes": 19.3,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.8,
+      "presion_externa": 411.0
+    },
+    {
+      "mes": 19.8,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.7,
+      "presion_externa": 412.0
+    },
+    {
+      "mes": 20.3,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.6,
+      "presion_externa": 412.9
+    },
+    {
+      "mes": 20.7,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 413.7
+    },
+    {
+      "mes": 21.2,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 414.4
+    },
+    {
+      "mes": 21.7,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 415.0
+    },
+    {
+      "mes": 22.2,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 415.6
+    },
+    {
+      "mes": 22.7,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 416.2
+    },
+    {
+      "mes": 23.2,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 416.6
+    },
+    {
+      "mes": 23.6,
+      "backlog_quejas": 84.3,
+      "clientes_insatisfechos": 0.2,
+      "presion_externa": 417.1
+    }
+  ],
+  "I3: Fast-track": [
+    {
+      "mes": 0.0,
+      "backlog_quejas": 50.0,
+      "clientes_insatisfechos": 277.0,
+      "presion_externa": 10.0
+    },
+    {
+      "mes": 0.5,
+      "backlog_quejas": 168.1,
+      "clientes_insatisfechos": 239.7,
+      "presion_externa": 16.6
+    },
+    {
+      "mes": 1.0,
+      "backlog_quejas": 230.5,
+      "clientes_insatisfechos": 207.4,
+      "presion_externa": 32.7
+    },
+    {
+      "mes": 1.4,
+      "backlog_quejas": 255.3,
+      "clientes_insatisfechos": 179.4,
+      "presion_externa": 61.5
+    },
+    {
+      "mes": 1.9,
+      "backlog_quejas": 252.6,
+      "clientes_insatisfechos": 155.3,
+      "presion_externa": 107.5
+    },
+    {
+      "mes": 2.4,
+      "backlog_quejas": 230.0,
+      "clientes_insatisfechos": 134.3,
+      "presion_externa": 172.7
+    },
+    {
+      "mes": 2.9,
+      "backlog_quejas": 200.2,
+      "clientes_insatisfechos": 116.2,
+      "presion_externa": 250.3
+    },
+    {
+      "mes": 3.4,
+      "backlog_quejas": 185.5,
+      "clientes_insatisfechos": 100.6,
+      "presion_externa": 315.4
+    },
+    {
+      "mes": 3.9,
+      "backlog_quejas": 179.3,
+      "clientes_insatisfechos": 87.0,
+      "presion_externa": 370.1
+    },
+    {
+      "mes": 4.3,
+      "backlog_quejas": 176.3,
+      "clientes_insatisfechos": 75.3,
+      "presion_externa": 417.7
+    },
+    {
+      "mes": 4.8,
+      "backlog_quejas": 174.7,
+      "clientes_insatisfechos": 65.2,
+      "presion_externa": 460.0
+    },
+    {
+      "mes": 5.3,
+      "backlog_quejas": 173.6,
+      "clientes_insatisfechos": 56.4,
+      "presion_externa": 497.7
+    },
+    {
+      "mes": 5.8,
+      "backlog_quejas": 172.9,
+      "clientes_insatisfechos": 48.8,
+      "presion_externa": 531.6
+    },
+    {
+      "mes": 6.3,
+      "backlog_quejas": 172.2,
+      "clientes_insatisfechos": 42.2,
+      "presion_externa": 562.1
+    },
+    {
+      "mes": 6.8,
+      "backlog_quejas": 171.7,
+      "clientes_insatisfechos": 36.5,
+      "presion_externa": 589.5
+    },
+    {
+      "mes": 7.2,
+      "backlog_quejas": 171.3,
+      "clientes_insatisfechos": 31.6,
+      "presion_externa": 614.1
+    },
+    {
+      "mes": 7.7,
+      "backlog_quejas": 170.9,
+      "clientes_insatisfechos": 27.3,
+      "presion_externa": 636.3
+    },
+    {
+      "mes": 8.2,
+      "backlog_quejas": 170.6,
+      "clientes_insatisfechos": 23.7,
+      "presion_externa": 656.3
+    },
+    {
+      "mes": 8.7,
+      "backlog_quejas": 170.3,
+      "clientes_insatisfechos": 20.5,
+      "presion_externa": 674.3
+    },
+    {
+      "mes": 9.2,
+      "backlog_quejas": 170.1,
+      "clientes_insatisfechos": 17.7,
+      "presion_externa": 690.6
+    },
+    {
+      "mes": 9.6,
+      "backlog_quejas": 169.9,
+      "clientes_insatisfechos": 15.3,
+      "presion_externa": 705.2
+    },
+    {
+      "mes": 10.1,
+      "backlog_quejas": 169.7,
+      "clientes_insatisfechos": 13.3,
+      "presion_externa": 718.4
+    },
+    {
+      "mes": 10.6,
+      "backlog_quejas": 169.5,
+      "clientes_insatisfechos": 11.5,
+      "presion_externa": 730.3
+    },
+    {
+      "mes": 11.1,
+      "backlog_quejas": 169.4,
+      "clientes_insatisfechos": 9.9,
+      "presion_externa": 741.1
+    },
+    {
+      "mes": 11.6,
+      "backlog_quejas": 169.3,
+      "clientes_insatisfechos": 8.6,
+      "presion_externa": 750.8
+    },
+    {
+      "mes": 12.1,
+      "backlog_quejas": 169.2,
+      "clientes_insatisfechos": 7.4,
+      "presion_externa": 759.5
+    },
+    {
+      "mes": 12.5,
+      "backlog_quejas": 169.1,
+      "clientes_insatisfechos": 6.4,
+      "presion_externa": 767.5
+    },
+    {
+      "mes": 13.0,
+      "backlog_quejas": 169.0,
+      "clientes_insatisfechos": 5.6,
+      "presion_externa": 774.6
+    },
+    {
+      "mes": 13.5,
+      "backlog_quejas": 168.9,
+      "clientes_insatisfechos": 4.8,
+      "presion_externa": 781.1
+    },
+    {
+      "mes": 14.0,
+      "backlog_quejas": 168.9,
+      "clientes_insatisfechos": 4.2,
+      "presion_externa": 786.9
+    },
+    {
+      "mes": 14.5,
+      "backlog_quejas": 168.8,
+      "clientes_insatisfechos": 3.6,
+      "presion_externa": 792.2
+    },
+    {
+      "mes": 15.0,
+      "backlog_quejas": 168.8,
+      "clientes_insatisfechos": 3.1,
+      "presion_externa": 796.9
+    },
+    {
+      "mes": 15.4,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.7,
+      "presion_externa": 801.2
+    },
+    {
+      "mes": 15.9,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.3,
+      "presion_externa": 805.1
+    },
+    {
+      "mes": 16.4,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.0,
+      "presion_externa": 808.7
+    },
+    {
+      "mes": 16.9,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 1.7,
+      "presion_externa": 811.8
+    },
+    {
+      "mes": 17.4,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.5,
+      "presion_externa": 814.7
+    },
+    {
+      "mes": 17.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.3,
+      "presion_externa": 817.3
+    },
+    {
+      "mes": 18.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.1,
+      "presion_externa": 819.7
+    },
+    {
+      "mes": 18.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.0,
+      "presion_externa": 821.8
+    },
+    {
+      "mes": 19.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.8,
+      "presion_externa": 823.8
+    },
+    {
+      "mes": 19.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.7,
+      "presion_externa": 825.5
+    },
+    {
+      "mes": 20.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.6,
+      "presion_externa": 827.1
+    },
+    {
+      "mes": 20.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 828.6
+    },
+    {
+      "mes": 21.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 829.9
+    },
+    {
+      "mes": 21.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 831.0
+    },
+    {
+      "mes": 22.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 832.1
+    },
+    {
+      "mes": 22.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 833.1
+    },
+    {
+      "mes": 23.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 834.0
+    },
+    {
+      "mes": 23.6,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.2,
+      "presion_externa": 834.8
+    }
+  ],
+  "I4: Clasificador": [
+    {
+      "mes": 0.0,
+      "backlog_quejas": 50.0,
+      "clientes_insatisfechos": 277.0,
+      "presion_externa": 10.0
+    },
+    {
+      "mes": 0.5,
+      "backlog_quejas": 171.7,
+      "clientes_insatisfechos": 239.7,
+      "presion_externa": 12.4
+    },
+    {
+      "mes": 1.0,
+      "backlog_quejas": 241.9,
+      "clientes_insatisfechos": 207.4,
+      "presion_externa": 18.1
+    },
+    {
+      "mes": 1.4,
+      "backlog_quejas": 280.7,
+      "clientes_insatisfechos": 179.4,
+      "presion_externa": 26.7
+    },
+    {
+      "mes": 1.9,
+      "backlog_quejas": 300.0,
+      "clientes_insatisfechos": 155.3,
+      "presion_externa": 38.3
+    },
+    {
+      "mes": 2.4,
+      "backlog_quejas": 307.0,
+      "clientes_insatisfechos": 134.3,
+      "presion_externa": 53.2
+    },
+    {
+      "mes": 2.9,
+      "backlog_quejas": 306.2,
+      "clientes_insatisfechos": 116.2,
+      "presion_externa": 71.5
+    },
+    {
+      "mes": 3.4,
+      "backlog_quejas": 300.2,
+      "clientes_insatisfechos": 100.6,
+      "presion_externa": 93.5
+    },
+    {
+      "mes": 3.9,
+      "backlog_quejas": 290.9,
+      "clientes_insatisfechos": 87.0,
+      "presion_externa": 119.2
+    },
+    {
+      "mes": 4.3,
+      "backlog_quejas": 279.5,
+      "clientes_insatisfechos": 75.3,
+      "presion_externa": 148.6
+    },
+    {
+      "mes": 4.8,
+      "backlog_quejas": 266.7,
+      "clientes_insatisfechos": 65.2,
+      "presion_externa": 181.3
+    },
+    {
+      "mes": 5.3,
+      "backlog_quejas": 253.3,
+      "clientes_insatisfechos": 56.4,
+      "presion_externa": 217.0
+    },
+    {
+      "mes": 5.8,
+      "backlog_quejas": 239.9,
+      "clientes_insatisfechos": 48.8,
+      "presion_externa": 255.1
+    },
+    {
+      "mes": 6.3,
+      "backlog_quejas": 226.9,
+      "clientes_insatisfechos": 42.2,
+      "presion_externa": 294.9
+    },
+    {
+      "mes": 6.8,
+      "backlog_quejas": 214.5,
+      "clientes_insatisfechos": 36.5,
+      "presion_externa": 335.8
+    },
+    {
+      "mes": 7.2,
+      "backlog_quejas": 203.1,
+      "clientes_insatisfechos": 31.6,
+      "presion_externa": 377.2
+    },
+    {
+      "mes": 7.7,
+      "backlog_quejas": 192.7,
+      "clientes_insatisfechos": 27.3,
+      "presion_externa": 418.5
+    },
+    {
+      "mes": 8.2,
+      "backlog_quejas": 183.3,
+      "clientes_insatisfechos": 23.7,
+      "presion_externa": 459.3
+    },
+    {
+      "mes": 8.7,
+      "backlog_quejas": 175.6,
+      "clientes_insatisfechos": 20.5,
+      "presion_externa": 498.6
+    },
+    {
+      "mes": 9.2,
+      "backlog_quejas": 172.1,
+      "clientes_insatisfechos": 17.7,
+      "presion_externa": 532.5
+    },
+    {
+      "mes": 9.6,
+      "backlog_quejas": 170.6,
+      "clientes_insatisfechos": 15.3,
+      "presion_externa": 562.3
+    },
+    {
+      "mes": 10.1,
+      "backlog_quejas": 170.0,
+      "clientes_insatisfechos": 13.3,
+      "presion_externa": 588.8
+    },
+    {
+      "mes": 10.6,
+      "backlog_quejas": 169.6,
+      "clientes_insatisfechos": 11.5,
+      "presion_externa": 612.8
+    },
+    {
+      "mes": 11.1,
+      "backlog_quejas": 169.4,
+      "clientes_insatisfechos": 9.9,
+      "presion_externa": 634.4
+    },
+    {
+      "mes": 11.6,
+      "backlog_quejas": 169.3,
+      "clientes_insatisfechos": 8.6,
+      "presion_externa": 653.9
+    },
+    {
+      "mes": 12.1,
+      "backlog_quejas": 169.2,
+      "clientes_insatisfechos": 7.4,
+      "presion_externa": 671.6
+    },
+    {
+      "mes": 12.5,
+      "backlog_quejas": 169.1,
+      "clientes_insatisfechos": 6.4,
+      "presion_externa": 687.6
+    },
+    {
+      "mes": 13.0,
+      "backlog_quejas": 169.0,
+      "clientes_insatisfechos": 5.6,
+      "presion_externa": 702.1
+    },
+    {
+      "mes": 13.5,
+      "backlog_quejas": 168.9,
+      "clientes_insatisfechos": 4.8,
+      "presion_externa": 715.2
+    },
+    {
+      "mes": 14.0,
+      "backlog_quejas": 168.9,
+      "clientes_insatisfechos": 4.2,
+      "presion_externa": 727.1
+    },
+    {
+      "mes": 14.5,
+      "backlog_quejas": 168.8,
+      "clientes_insatisfechos": 3.6,
+      "presion_externa": 737.9
+    },
+    {
+      "mes": 15.0,
+      "backlog_quejas": 168.8,
+      "clientes_insatisfechos": 3.1,
+      "presion_externa": 747.6
+    },
+    {
+      "mes": 15.4,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.7,
+      "presion_externa": 756.5
+    },
+    {
+      "mes": 15.9,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.3,
+      "presion_externa": 764.5
+    },
+    {
+      "mes": 16.4,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 2.0,
+      "presion_externa": 771.7
+    },
+    {
+      "mes": 16.9,
+      "backlog_quejas": 168.7,
+      "clientes_insatisfechos": 1.7,
+      "presion_externa": 778.3
+    },
+    {
+      "mes": 17.4,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.5,
+      "presion_externa": 784.3
+    },
+    {
+      "mes": 17.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.3,
+      "presion_externa": 789.7
+    },
+    {
+      "mes": 18.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.1,
+      "presion_externa": 794.6
+    },
+    {
+      "mes": 18.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 1.0,
+      "presion_externa": 799.1
+    },
+    {
+      "mes": 19.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.8,
+      "presion_externa": 803.1
+    },
+    {
+      "mes": 19.8,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.7,
+      "presion_externa": 806.7
+    },
+    {
+      "mes": 20.3,
+      "backlog_quejas": 168.6,
+      "clientes_insatisfechos": 0.6,
+      "presion_externa": 810.1
+    },
+    {
+      "mes": 20.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 813.1
+    },
+    {
+      "mes": 21.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 815.8
+    },
+    {
+      "mes": 21.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 818.3
+    },
+    {
+      "mes": 22.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 820.5
+    },
+    {
+      "mes": 22.7,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 822.5
+    },
+    {
+      "mes": 23.2,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 824.4
+    },
+    {
+      "mes": 23.6,
+      "backlog_quejas": 168.5,
+      "clientes_insatisfechos": 0.2,
+      "presion_externa": 826.1
+    }
+  ],
+  "TO-BE: Completo": [
+    {
+      "mes": 0.0,
+      "backlog_quejas": 50.0,
+      "clientes_insatisfechos": 277.0,
+      "presion_externa": 10.0
+    },
+    {
+      "mes": 0.5,
+      "backlog_quejas": 102.3,
+      "clientes_insatisfechos": 239.7,
+      "presion_externa": 11.3
+    },
+    {
+      "mes": 1.0,
+      "backlog_quejas": 132.3,
+      "clientes_insatisfechos": 207.4,
+      "presion_externa": 13.8
+    },
+    {
+      "mes": 1.4,
+      "backlog_quejas": 148.9,
+      "clientes_insatisfechos": 179.4,
+      "presion_externa": 17.2
+    },
+    {
+      "mes": 1.9,
+      "backlog_quejas": 157.5,
+      "clientes_insatisfechos": 155.3,
+      "presion_externa": 21.1
+    },
+    {
+      "mes": 2.4,
+      "backlog_quejas": 161.3,
+      "clientes_insatisfechos": 134.3,
+      "presion_externa": 25.6
+    },
+    {
+      "mes": 2.9,
+      "backlog_quejas": 162.4,
+      "clientes_insatisfechos": 116.2,
+      "presion_externa": 30.4
+    },
+    {
+      "mes": 3.4,
+      "backlog_quejas": 161.8,
+      "clientes_insatisfechos": 100.6,
+      "presion_externa": 35.5
+    },
+    {
+      "mes": 3.9,
+      "backlog_quejas": 160.4,
+      "clientes_insatisfechos": 87.0,
+      "presion_externa": 40.8
+    },
+    {
+      "mes": 4.3,
+      "backlog_quejas": 158.5,
+      "clientes_insatisfechos": 75.3,
+      "presion_externa": 46.4
+    },
+    {
+      "mes": 4.8,
+      "backlog_quejas": 156.4,
+      "clientes_insatisfechos": 65.2,
+      "presion_externa": 52.2
+    },
+    {
+      "mes": 5.3,
+      "backlog_quejas": 154.1,
+      "clientes_insatisfechos": 56.4,
+      "presion_externa": 58.1
+    },
+    {
+      "mes": 5.8,
+      "backlog_quejas": 151.9,
+      "clientes_insatisfechos": 48.8,
+      "presion_externa": 64.2
+    },
+    {
+      "mes": 6.3,
+      "backlog_quejas": 149.7,
+      "clientes_insatisfechos": 42.2,
+      "presion_externa": 70.4
+    },
+    {
+      "mes": 6.8,
+      "backlog_quejas": 147.6,
+      "clientes_insatisfechos": 36.5,
+      "presion_externa": 76.7
+    },
+    {
+      "mes": 7.2,
+      "backlog_quejas": 145.5,
+      "clientes_insatisfechos": 31.6,
+      "presion_externa": 83.1
+    },
+    {
+      "mes": 7.7,
+      "backlog_quejas": 143.5,
+      "clientes_insatisfechos": 27.3,
+      "presion_externa": 89.6
+    },
+    {
+      "mes": 8.2,
+      "backlog_quejas": 141.6,
+      "clientes_insatisfechos": 23.7,
+      "presion_externa": 96.2
+    },
+    {
+      "mes": 8.7,
+      "backlog_quejas": 139.8,
+      "clientes_insatisfechos": 20.5,
+      "presion_externa": 102.8
+    },
+    {
+      "mes": 9.2,
+      "backlog_quejas": 138.0,
+      "clientes_insatisfechos": 17.7,
+      "presion_externa": 109.5
+    },
+    {
+      "mes": 9.6,
+      "backlog_quejas": 136.3,
+      "clientes_insatisfechos": 15.3,
+      "presion_externa": 116.1
+    },
+    {
+      "mes": 10.1,
+      "backlog_quejas": 134.6,
+      "clientes_insatisfechos": 13.3,
+      "presion_externa": 122.8
+    },
+    {
+      "mes": 10.6,
+      "backlog_quejas": 133.0,
+      "clientes_insatisfechos": 11.5,
+      "presion_externa": 129.5
+    },
+    {
+      "mes": 11.1,
+      "backlog_quejas": 131.5,
+      "clientes_insatisfechos": 9.9,
+      "presion_externa": 136.2
+    },
+    {
+      "mes": 11.6,
+      "backlog_quejas": 130.0,
+      "clientes_insatisfechos": 8.6,
+      "presion_externa": 142.9
+    },
+    {
+      "mes": 12.1,
+      "backlog_quejas": 128.5,
+      "clientes_insatisfechos": 7.4,
+      "presion_externa": 149.5
+    },
+    {
+      "mes": 12.5,
+      "backlog_quejas": 127.1,
+      "clientes_insatisfechos": 6.4,
+      "presion_externa": 156.1
+    },
+    {
+      "mes": 13.0,
+      "backlog_quejas": 125.8,
+      "clientes_insatisfechos": 5.6,
+      "presion_externa": 162.6
+    },
+    {
+      "mes": 13.5,
+      "backlog_quejas": 124.5,
+      "clientes_insatisfechos": 4.8,
+      "presion_externa": 169.0
+    },
+    {
+      "mes": 14.0,
+      "backlog_quejas": 123.3,
+      "clientes_insatisfechos": 4.2,
+      "presion_externa": 175.4
+    },
+    {
+      "mes": 14.5,
+      "backlog_quejas": 122.1,
+      "clientes_insatisfechos": 3.6,
+      "presion_externa": 181.6
+    },
+    {
+      "mes": 15.0,
+      "backlog_quejas": 120.9,
+      "clientes_insatisfechos": 3.1,
+      "presion_externa": 187.8
+    },
+    {
+      "mes": 15.4,
+      "backlog_quejas": 119.8,
+      "clientes_insatisfechos": 2.7,
+      "presion_externa": 193.9
+    },
+    {
+      "mes": 15.9,
+      "backlog_quejas": 118.7,
+      "clientes_insatisfechos": 2.3,
+      "presion_externa": 199.8
+    },
+    {
+      "mes": 16.4,
+      "backlog_quejas": 117.7,
+      "clientes_insatisfechos": 2.0,
+      "presion_externa": 205.7
+    },
+    {
+      "mes": 16.9,
+      "backlog_quejas": 116.7,
+      "clientes_insatisfechos": 1.7,
+      "presion_externa": 211.4
+    },
+    {
+      "mes": 17.4,
+      "backlog_quejas": 115.7,
+      "clientes_insatisfechos": 1.5,
+      "presion_externa": 217.0
+    },
+    {
+      "mes": 17.8,
+      "backlog_quejas": 114.8,
+      "clientes_insatisfechos": 1.3,
+      "presion_externa": 222.4
+    },
+    {
+      "mes": 18.3,
+      "backlog_quejas": 113.9,
+      "clientes_insatisfechos": 1.1,
+      "presion_externa": 227.8
+    },
+    {
+      "mes": 18.8,
+      "backlog_quejas": 113.1,
+      "clientes_insatisfechos": 1.0,
+      "presion_externa": 232.9
+    },
+    {
+      "mes": 19.3,
+      "backlog_quejas": 112.3,
+      "clientes_insatisfechos": 0.8,
+      "presion_externa": 238.0
+    },
+    {
+      "mes": 19.8,
+      "backlog_quejas": 111.5,
+      "clientes_insatisfechos": 0.7,
+      "presion_externa": 242.9
+    },
+    {
+      "mes": 20.3,
+      "backlog_quejas": 110.8,
+      "clientes_insatisfechos": 0.6,
+      "presion_externa": 247.7
+    },
+    {
+      "mes": 20.7,
+      "backlog_quejas": 110.1,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 252.3
+    },
+    {
+      "mes": 21.2,
+      "backlog_quejas": 109.4,
+      "clientes_insatisfechos": 0.5,
+      "presion_externa": 256.8
+    },
+    {
+      "mes": 21.7,
+      "backlog_quejas": 108.7,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 261.2
+    },
+    {
+      "mes": 22.2,
+      "backlog_quejas": 108.1,
+      "clientes_insatisfechos": 0.4,
+      "presion_externa": 265.4
+    },
+    {
+      "mes": 22.7,
+      "backlog_quejas": 107.5,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 269.5
+    },
+    {
+      "mes": 23.2,
+      "backlog_quejas": 106.9,
+      "clientes_insatisfechos": 0.3,
+      "presion_externa": 273.5
+    },
+    {
+      "mes": 23.6,
+      "backlog_quejas": 106.4,
+      "clientes_insatisfechos": 0.2,
+      "presion_externa": 277.3
+    }
+  ]
+}
