@@ -1,9 +1,9 @@
 "use client";
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, ScatterChart, Scatter, ZAxis, PieChart, Pie, Legend } from "recharts";
 import { Users, UserMinus, ShieldAlert, Award, ChevronRight, TrendingUp } from "lucide-react";
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface ClienteScore {
   cliente_norm: string;
@@ -12,6 +12,8 @@ interface ClienteScore {
   score_riesgo: number;
   segmento: string;
   lenguaje_legal: number;
+  menciona_demora?: number;
+  canal_entes?: number;
 }
 
 // Distribución real de recurrencia (NB01)
@@ -38,8 +40,29 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   );
 };
 
+const SEG_COLOR: Record<string, string> = {
+  "Crítico": "#ef4444",
+  "Alto":    "#f97316",
+  "Medio":   "#eab308",
+  "Bajo":    "#22c55e",
+};
+
+const CustomScatterTooltip = ({ active, payload }: any) => {
+  if (!active || !payload?.length) return null;
+  const d = payload[0]?.payload;
+  return (
+    <div className="bg-white border border-brand-gray3 rounded-xl p-3 shadow-card-lg text-xs">
+      <p className="font-black text-sura-navy mb-1">{d?.nombre}</p>
+      <p className="text-brand-muted">Quejas: <span className="font-black text-sura-navy">{d?.x}</span></p>
+      <p className="text-brand-muted">Score riesgo: <span className="font-black text-sura-navy">{d?.y}%</span></p>
+      <p className="text-brand-muted">Segmento: <span className="font-black" style={{ color: SEG_COLOR[d?.segmento] }}>{d?.segmento}</span></p>
+    </div>
+  );
+};
+
 export default function ClientesRecurrentes() {
   const [topClientes, setTopClientes] = useState<{ nombre: string; quejas: number; escalado: boolean }[]>([]);
+  const [allClientes, setAllClientes] = useState<ClienteScore[]>([]);
 
   useEffect(() => {
     fetch("/data/scoring_clientes.json")
@@ -54,9 +77,31 @@ export default function ClientesRecurrentes() {
             escalado: c.segmento === "Crítico" || c.n_escalados > 0,
           }));
         setTopClientes(sorted);
+        setAllClientes(data);
       })
       .catch(() => {});
   }, []);
+
+  const scatterGroups = useMemo(() => {
+    const recurrentes = allClientes.filter(c => c.n_quejas >= 2);
+    return ["Crítico", "Alto", "Medio", "Bajo"].map(seg => ({
+      seg,
+      color: SEG_COLOR[seg],
+      data: recurrentes
+        .filter(c => c.segmento === seg)
+        .map(c => ({ x: c.n_quejas, y: Math.round(c.score_riesgo * 100), segmento: c.segmento, nombre: c.cliente_norm })),
+    }));
+  }, [allClientes]);
+
+  const atributosRiesgo = useMemo(() => {
+    const recurrentes = allClientes.filter(c => c.n_quejas >= 2);
+    if (recurrentes.length === 0) return [];
+    return [
+      { name: "Lenguaje legal",   value: recurrentes.filter(c => c.lenguaje_legal === 1).length,         color: "#ef4444" },
+      { name: "Menciona demora",  value: recurrentes.filter(c => (c.menciona_demora ?? 0) === 1).length,  color: "#f97316" },
+      { name: "Canal entes",      value: recurrentes.filter(c => (c.canal_entes ?? 0) === 1).length,      color: "#0049cb" },
+    ];
+  }, [allClientes]);
 
   const escalados = topClientes.filter(c => c.escalado).length;
 
@@ -226,6 +271,125 @@ export default function ClientesRecurrentes() {
           </div>
 
         </div>
+      </div>
+
+      {/* Scatter + Donut */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        {/* Scatter: Score de riesgo vs # quejas */}
+        <div className="lg:col-span-7 card animate-fade-up">
+          <h2 className="text-xl font-black text-sura-navy tracking-tight mb-1">Score de Riesgo vs Frecuencia</h2>
+          <p className="text-sm text-brand-muted mb-6">Distribución de los 277 clientes recurrentes — cada punto es un cliente</p>
+          {scatterGroups.some(g => g.data.length > 0) ? (
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <ScatterChart margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e1e1f6" />
+                  <XAxis
+                    type="number"
+                    dataKey="x"
+                    name="Quejas"
+                    domain={[1.5, 5.5]}
+                    ticks={[2, 3, 4, 5]}
+                    tickFormatter={(v) => `${v} quejas`}
+                    tick={{ fill: "#747684", fontSize: 10, fontWeight: 600 }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    type="number"
+                    dataKey="y"
+                    name="Score"
+                    domain={[0, 105]}
+                    tickFormatter={(v) => `${v}%`}
+                    tick={{ fill: "#747684", fontSize: 10 }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <ZAxis range={[40, 40]} />
+                  <Tooltip content={<CustomScatterTooltip />} cursor={{ strokeDasharray: "3 3" }} />
+                  <Legend
+                    iconType="circle"
+                    iconSize={8}
+                    formatter={(v) => <span style={{ fontSize: 10, fontWeight: 700, color: "#00216e" }}>{v}</span>}
+                  />
+                  {scatterGroups.map(g => (
+                    <Scatter
+                      key={g.seg}
+                      name={g.seg}
+                      data={g.data}
+                      fill={g.color}
+                      fillOpacity={0.65}
+                    />
+                  ))}
+                </ScatterChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <div className="h-[300px] flex items-center justify-center text-brand-gray1 text-sm">Cargando datos…</div>
+          )}
+          <p className="text-[10px] text-brand-gray1 mt-4 italic">
+            Eje X: número de quejas en el semestre. Eje Y: score de riesgo calculado por el modelo ML (0–100%).
+            Puntos rojos son clientes Críticos — requieren contacto proactivo.
+          </p>
+        </div>
+
+        {/* Donut: Atributos de riesgo */}
+        <div className="lg:col-span-5 card animate-fade-up">
+          <h2 className="text-xl font-black text-sura-navy tracking-tight mb-1">Perfil de los Recurrentes</h2>
+          <p className="text-sm text-brand-muted mb-6">
+            ¿Qué señales de alerta aparecen en las quejas de los 277 clientes con múltiples reclamos?
+          </p>
+          {atributosRiesgo.length > 0 ? (
+            <>
+              <div className="h-[200px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={atributosRiesgo}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={55}
+                      outerRadius={85}
+                      paddingAngle={3}
+                      dataKey="value"
+                    >
+                      {atributosRiesgo.map((entry, i) => (
+                        <Cell key={i} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      formatter={(value: number, name: string) => [`${value} clientes`, name]}
+                      contentStyle={{ borderRadius: 12, fontSize: 11, border: "1px solid #e1e1f6" }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="space-y-3 mt-4">
+                {atributosRiesgo.map(a => (
+                  <div key={a.name} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: a.color }} />
+                      <span className="text-xs font-semibold text-brand-charcoal">{a.name}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-sm font-black text-sura-navy">{a.value}</span>
+                      <span className="text-[10px] text-brand-gray1 ml-1">
+                        ({Math.round(a.value / 277 * 100)}%)
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] text-brand-gray1 mt-4 italic leading-relaxed">
+                Los atributos no son excluyentes — un cliente puede tener varios. Base: 277 clientes recurrentes.
+              </p>
+            </>
+          ) : (
+            <div className="h-[200px] flex items-center justify-center text-brand-gray1 text-sm">Cargando datos…</div>
+          )}
+        </div>
+
       </div>
     </div>
   );

@@ -2,10 +2,10 @@
 
 import {
   ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ReferenceLine, BarChart, Bar, Cell, Line
+  ResponsiveContainer, ReferenceLine, BarChart, Bar, Cell, Line, LabelList
 } from "recharts";
 import { TrendingUp, AlertTriangle, Users, Activity } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface ForecastRow {
   fecha: string;
@@ -71,6 +71,24 @@ const FORECAST_FALLBACK: ForecastRow[] = [
   { fecha: "2025-09-01", forecast_base: 453, ic_bajo: 403, ic_alto: 503, escenario_optimista: 364, escenario_pesimista: 511 },
 ];
 
+// Datos históricos reales Ene–May 2025 (NB01) para el gráfico unificado
+const HISTORICO_MENSUAL = [
+  { mes: "Ene", real: 337 },
+  { mes: "Feb", real: 349 },
+  { mes: "Mar", real: 370 },
+  { mes: "Abr", real: 358 },
+  { mes: "May", real: 254 },
+];
+
+// Waterfall: camino acumulado del plan completo (derivado de escenarios)
+const waterfallData = [
+  { step: "Sin intervención",      base: 0,   valor: 169, color: "#ef4444", etiqueta: "169" },
+  { step: "Portal seguimiento",    base: 110,  valor: 59,  color: "#0049cb", etiqueta: "−59" },
+  { step: "+ Notificaciones",      base: 68,   valor: 42,  color: "#085efe", etiqueta: "−42" },
+  { step: "+ Clasificador",        base: 21,   valor: 47,  color: "#00216e", etiqueta: "−47" },
+  { step: "Plan completo",         base: 0,    valor: 21,  color: "#22c55e", etiqueta: "21" },
+];
+
 const ALERTAS_FALLBACK = {
   forecast_proximo_mes: 404,
   umbral_alerta: 369,
@@ -83,13 +101,28 @@ const CustomForecastTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-white border border-brand-gray3 rounded-xl p-3 shadow-card-lg text-xs space-y-1">
-      <p className="font-black text-sura-navy mb-2">{MesLabel[label] ?? label} 2025</p>
-      {payload.map((p: any) => (
+      <p className="font-black text-sura-navy mb-2">{label} 2025</p>
+      {payload.filter((p: any) => p.value != null).map((p: any) => (
         <div key={p.name} className="flex items-center justify-between gap-6">
           <span className="text-brand-muted">{p.name}:</span>
           <span className="font-black" style={{ color: p.stroke || p.fill || "#00216e" }}>{p.value}</span>
         </div>
       ))}
+    </div>
+  );
+};
+
+const CustomWaterfallTooltip = ({ active, payload, label }: any) => {
+  if (!active || !payload?.length) return null;
+  const base  = payload.find((p: any) => p.dataKey === "base")?.value  ?? 0;
+  const valor = payload.find((p: any) => p.dataKey === "valor")?.value ?? 0;
+  const total = base + valor;
+  const ahorro = 169 - total;
+  return (
+    <div className="bg-white border border-brand-gray3 rounded-xl p-3 shadow-card-lg text-xs max-w-[200px]">
+      <p className="font-black text-sura-navy mb-1">{label}</p>
+      <p className="text-brand-muted">Casos pendientes al mes 12: <span className="font-black text-sura-navy">{total}</span></p>
+      {ahorro > 0 && <p className="text-green-600 font-black mt-1">Ahorro acumulado: {ahorro} casos ({Math.round(ahorro / 169 * 100)}%)</p>}
     </div>
   );
 };
@@ -122,6 +155,18 @@ export default function Prediccion() {
   }, []);
 
   const forecastAlerta = alertas && alertas.forecast_proximo_mes > alertas.umbral_alerta;
+
+  const chartUnificado = useMemo(() => {
+    const fRows = forecast.length > 0 ? forecast : FORECAST_FALLBACK;
+    const proj = fRows.map(f => ({
+      mes: MesLabel[f.fecha] ?? f.fecha,
+      base: f.forecast_base,
+      ic_bajo: f.ic_bajo,
+      ic_alto: f.ic_alto,
+      optimista: f.escenario_optimista,
+    }));
+    return [...HISTORICO_MENSUAL, ...proj];
+  }, [forecast]);
 
   return (
     <div className="p-8 max-w-[1400px] mx-auto space-y-10 animate-page-in">
@@ -223,30 +268,33 @@ export default function Prediccion() {
         <div className="lg:col-span-8 card animate-fade-up">
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h3 className="text-xl font-bold text-sura-navy">Forecast de Volumen</h3>
-              <p className="text-sm text-brand-muted">Proyección Jun–Sep 2025 con intervalo de confianza 80%</p>
+              <h3 className="text-xl font-bold text-sura-navy">Histórico + Forecast de Volumen</h3>
+              <p className="text-sm text-brand-muted">Real Ene–May 2025 · Proyección Jun–Sep 2025 (IC 80%)</p>
             </div>
             <div className="flex flex-wrap gap-3 text-[10px] font-bold uppercase tracking-wide">
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-sura-navy"></span> Base</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-brand-gray1"></span> Histórico</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-sura-navy"></span> Forecast</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-sura-action opacity-40"></span> IC 80%</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-green-500"></span> Optimista</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-400"></span> Pesimista</span>
             </div>
           </div>
 
           <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={forecast} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+              <ComposedChart data={chartUnificado} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="gradCI" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%"  stopColor="#085efe" stopOpacity={0.15} />
                     <stop offset="95%" stopColor="#085efe" stopOpacity={0.02} />
                   </linearGradient>
+                  <linearGradient id="gradReal" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%"  stopColor="#94a3b8" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#94a3b8" stopOpacity={0.02} />
+                  </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e1e1f6" vertical={false} />
                 <XAxis
-                  dataKey="fecha"
-                  tickFormatter={(v) => MesLabel[v] ?? v}
+                  dataKey="mes"
                   tick={{ fill: "#747684", fontSize: 11, fontWeight: 600 }}
                   axisLine={false}
                   tickLine={false}
@@ -256,9 +304,15 @@ export default function Prediccion() {
                   tick={{ fill: "#747684", fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
-                  domain={[280, 560]}
+                  domain={[180, 560]}
                 />
                 <Tooltip content={<CustomForecastTooltip />} />
+                <ReferenceLine
+                  x="Jun"
+                  stroke="#94a3b8"
+                  strokeDasharray="4 3"
+                  label={{ value: "▶ Forecast", fill: "#94a3b8", fontSize: 9, fontWeight: 700, position: "insideTopRight" }}
+                />
                 {alertas && (
                   <ReferenceLine
                     y={alertas.umbral_alerta}
@@ -267,55 +321,47 @@ export default function Prediccion() {
                     label={{ value: `Umbral ${alertas.umbral_alerta}`, fill: "#d97706", fontSize: 10, fontWeight: 700, position: "insideTopLeft" }}
                   />
                 )}
+                {/* Banda IC forecast */}
+                <Area type="monotone" dataKey="ic_alto"  name="IC alto"  stroke="transparent" fill="url(#gradCI)"   activeDot={false} connectNulls={false} />
+                <Area type="monotone" dataKey="ic_bajo"  name="IC bajo"  stroke="transparent" fill="#fbf8ff"        activeDot={false} connectNulls={false} />
+                {/* Histórico real */}
                 <Area
                   type="monotone"
-                  dataKey="ic_alto"
-                  name="IC alto"
-                  stroke="transparent"
-                  fill="url(#gradCI)"
-                  activeDot={false}
+                  dataKey="real"
+                  name="Histórico real"
+                  stroke="#94a3b8"
+                  strokeWidth={2.5}
+                  fill="url(#gradReal)"
+                  dot={{ r: 4, fill: "#94a3b8", strokeWidth: 2, stroke: "#fff" }}
+                  connectNulls={false}
                 />
-                <Area
-                  type="monotone"
-                  dataKey="ic_bajo"
-                  name="IC bajo"
-                  stroke="transparent"
-                  fill="#fbf8ff"
-                  activeDot={false}
-                />
+                {/* Forecast */}
                 <Line
                   type="monotone"
-                  dataKey="forecast_base"
+                  dataKey="base"
                   name="Forecast base"
                   stroke="#00216e"
                   strokeWidth={3}
                   dot={{ r: 5, fill: "#00216e", strokeWidth: 2, stroke: "#fff" }}
+                  connectNulls={false}
                 />
                 <Line
                   type="monotone"
-                  dataKey="escenario_optimista"
+                  dataKey="optimista"
                   name="Optimista (intervenciones)"
                   stroke="#22c55e"
                   strokeWidth={2}
                   strokeDasharray="6 3"
                   dot={{ r: 4, fill: "#22c55e", strokeWidth: 2, stroke: "#fff" }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="escenario_pesimista"
-                  name="Pesimista"
-                  stroke="#f87171"
-                  strokeWidth={2}
-                  strokeDasharray="4 3"
-                  dot={{ r: 4, fill: "#f87171", strokeWidth: 2, stroke: "#fff" }}
+                  connectNulls={false}
                 />
               </ComposedChart>
             </ResponsiveContainer>
           </div>
 
           <p className="text-[10px] text-brand-gray1 mt-4 italic">
-            Modelo: Exponential Smoothing (Holt, tendencia amortiguada). Entrenado Ene–May 2025.
-            El escenario optimista asume implementación del portal de tracking (-10% entrada).
+            La línea gris muestra el volumen real registrado. La línea azul oscuro proyecta el forecast a partir de Junio.
+            La línea verde muestra el escenario con portal de seguimiento implementado.
           </p>
         </div>
 
@@ -427,6 +473,57 @@ export default function Prediccion() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Waterfall: ruta acumulada del plan completo */}
+      <div className="card animate-fade-up">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+          <div>
+            <h3 className="text-xl font-bold text-sura-navy mb-1">Ruta hacia el Plan Completo</h3>
+            <p className="text-sm text-brand-muted max-w-xl">
+              Cuántos casos elimina cada intervención al encadenarlas en orden de impacto.
+              De 169 sin cambios a 21 con el plan completo — una reducción del 88%.
+            </p>
+          </div>
+          <div className="shrink-0 flex flex-col gap-1 text-[10px] font-bold uppercase tracking-wide">
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span> Sin intervención</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#0049cb]"></span> Reducción parcial</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#22c55e]"></span> Plan completo</span>
+          </div>
+        </div>
+        <div className="h-[240px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={waterfallData} margin={{ top: 30, right: 20, left: -10, bottom: 5 }} barSize={52}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e1e1f6" vertical={false} />
+              <XAxis
+                dataKey="step"
+                tick={{ fill: "#00216e", fontSize: 10, fontWeight: 700 }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                tick={{ fill: "#747684", fontSize: 10 }}
+                axisLine={false}
+                tickLine={false}
+                domain={[0, 200]}
+              />
+              <Tooltip content={<CustomWaterfallTooltip />} cursor={{ fill: "#f1f1ff" }} />
+              {/* Base invisible — efecto waterfall */}
+              <Bar dataKey="base" stackId="w" fill="transparent" isAnimationActive={false} />
+              {/* Barra visible */}
+              <Bar dataKey="valor" stackId="w" radius={[4, 4, 0, 0]}>
+                {waterfallData.map((d, i) => (
+                  <Cell key={i} fill={d.color} />
+                ))}
+                <LabelList dataKey="etiqueta" position="top" style={{ fill: "#00216e", fontSize: 11, fontWeight: 800 }} />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <p className="text-[10px] text-brand-gray1 mt-3 italic">
+          Cada barra arranca donde terminó la anterior — muestra el ahorro incremental de cada paso.
+          El portal de seguimiento y las notificaciones proactivas aportan el 60% de la mejora total.
+        </p>
       </div>
 
     </div>
