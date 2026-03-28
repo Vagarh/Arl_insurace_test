@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart2, Radio, Tag, Users, Zap, TrendingUp } from "lucide-react";
+import { BarChart2, Radio, Tag, Users, Zap, TrendingUp, BookOpen } from "lucide-react";
 import type { View } from "@/app/page";
 import clsx from "clsx";
 import Image from "next/image";
@@ -17,6 +17,7 @@ const navItems: { id: View; label: string; icon: React.ReactNode; }[] = [
   { id: "recurrentes",  label: "Clientes Recurrentes", icon: <Users size={18} /> },
   { id: "clasificador", label: "Clasificador en Vivo", icon: <Zap size={18} /> },
   { id: "prediccion",   label: "Predicción & Dinámica", icon: <TrendingUp size={18} /> },
+  { id: "sobre",        label: "Sobre el Proyecto",    icon: <BookOpen size={18} /> },
 ];
 
 export default function Sidebar({ activeView, setActiveView }: Props) {
@@ -25,9 +26,9 @@ export default function Sidebar({ activeView, setActiveView }: Props) {
       {/* Logo Section */}
       <div className="mb-10 px-2 pt-4">
         <div className="relative w-32 h-10 mb-1">
-          <Image 
-            src="/logo.png" 
-            alt="ARL SURA Logo" 
+          <Image
+            src="/logo.png"
+            alt="ARL SURA Logo"
             fill
             className="object-contain object-left"
             priority
@@ -67,11 +68,18 @@ export default function Sidebar({ activeView, setActiveView }: Props) {
       <div className="pt-4 mt-2 border-t border-brand-gray3 px-2 space-y-3">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-sura-ice flex items-center justify-center text-sura-navy text-xs font-black shrink-0">
-            JC
+            JA
           </div>
           <div>
-            <p className="text-xs font-bold text-sura-navy leading-none">Usuario Institucional</p>
-            <p className="text-[10px] text-brand-gray1 mt-0.5">Administrador</p>
+            <p className="text-xs font-bold text-sura-navy leading-none">Juan Felipe Arango</p>
+            <a
+              href="https://github.com/Vagarh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] text-sura-action hover:underline mt-0.5 block"
+            >
+              github.com/Vagarh
+            </a>
           </div>
         </div>
         <p className="text-[10px] text-brand-gray1 leading-relaxed">

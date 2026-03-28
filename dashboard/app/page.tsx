@@ -9,8 +9,9 @@ import AnalisisTematico from "@/components/views/AnalisisTematico";
 import ClientesRecurrentes from "@/components/views/ClientesRecurrentes";
 import ClasificadorVivo from "@/components/views/ClasificadorVivo";
 import Prediccion from "@/components/views/Prediccion";
+import SobreProyecto from "@/components/views/SobreProyecto";
 
-export type View = "resumen" | "canales" | "tematico" | "recurrentes" | "clasificador" | "prediccion";
+export type View = "resumen" | "canales" | "tematico" | "recurrentes" | "clasificador" | "prediccion" | "sobre";
 
 const viewLabels: Record<View, string> = {
   resumen:       "Resumen Ejecutivo",
@@ -19,6 +20,7 @@ const viewLabels: Record<View, string> = {
   recurrentes:   "Clientes Recurrentes",
   clasificador:  "Clasificador en Vivo",
   prediccion:    "Predicción & Dinámica",
+  sobre:         "Sobre el Proyecto",
 };
 
 export default function Home() {
@@ -26,13 +28,14 @@ export default function Home() {
 
   const renderView = () => {
     switch (activeView) {
-      case "resumen":      return <ResumenEjecutivo />;
+      case "resumen":      return <ResumenEjecutivo onNavigate={setActiveView} />;
       case "canales":      return <AnalisisCanales />;
       case "tematico":     return <AnalisisTematico />;
       case "recurrentes":  return <ClientesRecurrentes />;
       case "clasificador": return <ClasificadorVivo />;
       case "prediccion":   return <Prediccion />;
-      default:             return <ResumenEjecutivo />;
+      case "sobre":        return <SobreProyecto />;
+      default:             return <ResumenEjecutivo onNavigate={setActiveView} />;
     }
   };
 

@@ -3,15 +3,38 @@
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, Tooltip, PolarRadiusAxis } from "recharts";
 import { Tag, Sparkles, ChevronRight, Hash, MessageSquareText } from "lucide-react";
 import clsx from "clsx";
+import { useState } from "react";
+import Modal from "@/components/Modal";
 
 const temas = [
-  { tema: "Estado de trámite", count: 644, pct: 35, words: ["estado","radicado","incapacidad","certificado","cuándo"], riesgo: "Medio",   color: "#00216e" },
-  { tema: "Demora en pago",    count: 460, pct: 25, words: ["pago","meses","espera","semanas","fecha"],                riesgo: "Alto",    color: "#0049cb" },
-  { tema: "Solicitud docs",    count: 276, pct: 15, words: ["certificado","soporte","carta","documento","enviar"],     riesgo: "Bajo",    color: "#085efe" },
-  { tema: "Radicación",        count: 184, pct: 10, words: ["radicado","plataforma","error","subir","sistema"],        riesgo: "Medio",   color: "#659FFF" },
-  { tema: "Error monto",       count: 129, pct: 7,  words: ["valor","monto","incorrecto","diferencia","empresa"],      riesgo: "Alto",    color: "#e6eb2d" },
-  { tema: "Escalamiento legal",count: 92,  pct: 5,  words: ["tutela","petición","derecho","control","legal"],          riesgo: "Crítico", color: "#ef4444" },
-  { tema: "Insatisfacción",    count: 55,  pct: 3,  words: ["trato","respuesta","atención","deficiente","mal"],        riesgo: "Medio",   color: "#91B8FF" },
+  { tema: "Estado de trámite", count: 644, pct: 35, words: ["estado","radicado","incapacidad","certificado","cuándo"], riesgo: "Medio",   color: "#00216e",
+    causa: "El cliente no tiene visibilidad del estado de su radicado y usa la queja como único mecanismo de consulta.",
+    recomendacion: "Implementar portal de tracking en SEGUROSSURA.COM.CO con notificaciones por WhatsApp/email en cada cambio de estado. Impacto estimado: -30% del volumen total de quejas." },
+  { tema: "Demora en pago",    count: 460, pct: 25, words: ["pago","meses","espera","semanas","fecha"],                riesgo: "Alto",    color: "#0049cb",
+    causa: "Cuellos de botella en validación de documentos y liquidación. Tareas manuales que generan tiempos de ciclo superiores a 30 días.",
+    recomendacion: "Automatizar validación documental (OCR + reglas) y liquidación paramétrica. SLA interno: máximo 15 días hábiles desde radicación. Alerta automática al día 10." },
+  { tema: "Solicitud docs",    count: 276, pct: 15, words: ["certificado","soporte","carta","documento","enviar"],     riesgo: "Bajo",    color: "#085efe",
+    causa: "Falta de claridad sobre qué documentos se requieren y cómo enviarlos. El cliente no sabe en qué estado está su documentación.",
+    recomendacion: "Checklist digital de documentos requeridos en el portal. Confirmación automática de recepción con número de radicado por SMS/email." },
+  { tema: "Radicación",        count: 184, pct: 10, words: ["radicado","plataforma","error","subir","sistema"],        riesgo: "Medio",   color: "#659FFF",
+    causa: "Fallas técnicas en la plataforma de radicación. El radicado no aparece en el sistema o la carga de archivos falla.",
+    recomendacion: "Auditoría técnica de la plataforma de radicación. Implementar confirmación de radicado con acuse de recibo. Monitor de disponibilidad 24/7." },
+  { tema: "Error monto",       count: 129, pct: 7,  words: ["valor","monto","incorrecto","diferencia","empresa"],      riesgo: "Alto",    color: "#e6eb2d",
+    causa: "Errores en la liquidación del valor diario de incapacidad por datos de nómina incorrectos o desactualizados del empleador.",
+    recomendacion: "Validación automática del IBC (Ingreso Base de Cotización) con la PILA antes de liquidar. Proceso de reversa y re-liquidación en menos de 48h." },
+  { tema: "Escalamiento legal",count: 92,  pct: 5,  words: ["tutela","petición","derecho","control","legal"],          riesgo: "Crítico", color: "#ef4444",
+    causa: "Casos que no fueron resueltos en los canales regulares escalan a tutelas o derechos de petición. SLA regulatorio obligatorio activo.",
+    recomendacion: "Clasificador NLP identifica estas quejas en tiempo real (precisión 74%). Asignación automática a equipo jurídico especializado. Respuesta obligatoria en 48h." },
+  { tema: "Insatisfacción",    count: 55,  pct: 3,  words: ["trato","respuesta","atención","deficiente","mal"],        riesgo: "Medio",   color: "#91B8FF",
+    causa: "Inconformidad con el trato recibido en los canales de atención o falta de respuesta a comunicaciones previas.",
+    recomendacion: "Encuesta de satisfacción post-contacto (NPS). Protocolo de atención para clientes marcados como sensibles. Revisión de grabaciones de llamadas." },
+];
+
+const PLAN_MITIGACION = [
+  { prioridad: 1, accion: "Portal de tracking en tiempo real", impacto: "-30% a -40% volumen", plazo: "90 días", descripcion: "Implementar consulta de estado de radicado en SEGUROSSURA.COM.CO. Elimina las quejas de 'Estado de trámite' y 'Radicación'." },
+  { prioridad: 2, accion: "Notificaciones proactivas WhatsApp/Email", impacto: "-15% a -20%", plazo: "60 días", descripcion: "Alertas automáticas en cada cambio de estado: radicado → validado → en liquidación → pagado. Anticipa la queja." },
+  { prioridad: 3, accion: "Fast-Track clientes recurrentes", impacto: "-10%", plazo: "30 días", descripcion: "Flujo prioritario para los 277 clientes con >1 queja. Un cliente recurrente tiene 2.66x más probabilidad de escalar." },
+  { prioridad: 4, accion: "Clasificador automático de urgencia", impacto: "-8%", plazo: "Inmediato", descripcion: "El modelo NLP (AUC 0.81) detecta lenguaje legal (tutelas, derechos de petición) y los escala automáticamente al equipo jurídico." },
 ];
 
 const radarData = temas.map(t => ({ tema: t.tema.split(" ")[0], count: t.count }));
@@ -36,8 +59,62 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function AnalisisTematico() {
+  const [modalPlan, setModalPlan] = useState(false);
+  const [temaDetalle, setTemaDetalle] = useState<typeof temas[0] | null>(null);
+
   return (
     <div className="p-8 max-w-[1400px] mx-auto space-y-12 animate-page-in">
+
+      {/* Modal Plan de Mitigación */}
+      <Modal open={modalPlan} onClose={() => setModalPlan(false)} title="Plan de Mitigación — 4 Acciones Prioritarias" width="max-w-2xl">
+        <div className="space-y-4">
+          <p className="text-sm text-brand-muted mb-4">Impacto total estimado: <strong className="text-sura-navy">-55% a -63%</strong> del volumen de quejas en 12 meses.</p>
+          {PLAN_MITIGACION.map(p => (
+            <div key={p.prioridad} className="border border-brand-gray3 rounded-xl p-4 space-y-2 hover:border-sura-action transition-colors">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="w-7 h-7 rounded-full bg-sura-navy text-white text-xs font-black flex items-center justify-center shrink-0">{p.prioridad}</span>
+                  <p className="font-bold text-sura-navy text-sm">{p.accion}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="px-2 py-0.5 rounded-full bg-green-50 text-green-700 text-[10px] font-bold">{p.impacto}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-sura-frost text-sura-navy text-[10px] font-bold">{p.plazo}</span>
+                </div>
+              </div>
+              <p className="text-xs text-brand-muted leading-relaxed pl-10">{p.descripcion}</p>
+            </div>
+          ))}
+        </div>
+      </Modal>
+
+      {/* Modal Detalle de Tema */}
+      <Modal open={!!temaDetalle} onClose={() => setTemaDetalle(null)} title={`Detalle — ${temaDetalle?.tema}`} width="max-w-lg">
+        {temaDetalle && (
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full" style={{ background: temaDetalle.color }} />
+              <span className={clsx(riesgoBadge[temaDetalle.riesgo], "text-[10px] font-black uppercase px-2")}>{temaDetalle.riesgo}</span>
+              <span className="text-sm font-bold text-sura-navy">{temaDetalle.count} casos · {temaDetalle.pct}% del total</span>
+            </div>
+            <div className="bg-brand-low rounded-xl p-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray1 mb-2">Causa raíz identificada</p>
+              <p className="text-sm text-brand-muted leading-relaxed">{temaDetalle.causa}</p>
+            </div>
+            <div className="bg-sura-navy text-white rounded-xl p-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-sura-yellow mb-2">Recomendación</p>
+              <p className="text-sm leading-relaxed">{temaDetalle.recomendacion}</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray1 mb-2">Palabras clave detectadas por NLP</p>
+              <div className="flex flex-wrap gap-2">
+                {temaDetalle.words.map(w => (
+                  <span key={w} className="px-2.5 py-1 rounded-full text-xs font-bold bg-sura-frost text-sura-navy border border-sura-ice">{w}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
       
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-brand-gray3">
@@ -104,7 +181,10 @@ export default function AnalisisTematico() {
              <p className="text-sm text-white/70 leading-relaxed font-medium">
                Las quejas de "Estado de trámite" y "Demora en pago" nacen de la incertidumbre. Notificaciones automáticas en cada etapa reducirían drásticamente este volumen.
              </p>
-             <button className="flex items-center gap-2 text-xs font-bold text-sura-yellow group-hover:gap-4 transition-all uppercase tracking-widest pt-2">
+             <button
+               onClick={() => setModalPlan(true)}
+               className="flex items-center gap-2 text-xs font-bold text-sura-yellow group-hover:gap-4 transition-all uppercase tracking-widest pt-2"
+             >
                Ver plan de mitigación <ChevronRight size={14} />
              </button>
           </div>
@@ -166,7 +246,10 @@ export default function AnalisisTematico() {
 
                 {/* Quick Action Button */}
                 <div className="flex items-center justify-center shrink-0">
-                   <button className="w-10 h-10 rounded-xl bg-brand-low group-hover:bg-sura-action group-hover:text-white flex items-center justify-center text-brand-gray1 transition-all shadow-sm">
+                   <button
+                     onClick={() => setTemaDetalle(t)}
+                     className="w-10 h-10 rounded-xl bg-brand-low group-hover:bg-sura-action group-hover:text-white flex items-center justify-center text-brand-gray1 transition-all shadow-sm"
+                   >
                       <ChevronRight size={18} />
                    </button>
                 </div>

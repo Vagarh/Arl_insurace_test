@@ -8,6 +8,8 @@ import {
 import { AlertTriangle, BarChart2, Users, Eye, ChevronRight, Zap } from "lucide-react";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
+import Modal from "@/components/Modal";
+import type { View } from "@/app/page";
 
 // Datos reales extraídos del análisis EDA (NB01)
 const volumenMensual = [
@@ -38,10 +40,12 @@ const topCategorias = [
 ];
 
 const CasosRecientes = [
-  { id: "#CAS-88219", empresa: "Constructora Horizonte", idEmpresa: "900.234.111-5", motivo: "Reembolso médico pendiente", severidad: "Alta", estado: "En Proceso" },
-  { id: "#CAS-88220", empresa: "Minería del Cauca", idEmpresa: "860.003.444-2", motivo: "Calificación de origen", severidad: "Media", estado: "Pendiente" },
-  { id: "#CAS-88221", empresa: "Servicios Unidos S.A.S", idEmpresa: "901.442.001-0", motivo: "Incapacidad no liquidada", severidad: "Alta", estado: "En Proceso" },
-  { id: "#CAS-88222", empresa: "Logística Global", idEmpresa: "800.211.998-3", motivo: "Cita especialista demorada", severidad: "Baja", estado: "Cerrado" },
+  { id: "#CAS-88219", empresa: "Constructora Horizonte", idEmpresa: "900.234.111-5", motivo: "Reembolso médico pendiente", severidad: "Alta", estado: "En Proceso", canal: "ENTES DE CONTROL", fecha: "Mar 2025", descripcion: "El empleador reporta que lleva 3 meses esperando el reembolso del reembolso por atención médica de urgencias. Ha radicado el caso dos veces sin obtener respuesta. El monto pendiente es de $4.200.000 COP.", accion: "Asignar gestor prioritario y contactar al prestador en 48h." },
+  { id: "#CAS-88220", empresa: "Minería del Cauca", idEmpresa: "860.003.444-2", motivo: "Calificación de origen", severidad: "Media", estado: "Pendiente", canal: "LÍNEA DE ATENCIÓN", fecha: "Abr 2025", descripcion: "Disputa sobre si el accidente es de origen laboral o común. El empleado lleva 6 semanas en incapacidad sin pago porque la calificación está en proceso. Menciona que iniciará acción legal si no hay respuesta en 5 días.", accion: "Priorizar dictamen de calificación de origen con medicina laboral." },
+  { id: "#CAS-88221", empresa: "Servicios Unidos S.A.S", idEmpresa: "901.442.001-0", motivo: "Incapacidad no liquidada", severidad: "Alta", estado: "En Proceso", canal: "ENTES DE CONTROL", fecha: "Feb 2025", descripcion: "Trabajador con incapacidad de 45 días no ha recibido ningún pago. El empleador afirma haber enviado la documentación completa en enero. Sistema no refleja el radicado.", accion: "Verificar radicación manual y procesar liquidación urgente." },
+  { id: "#CAS-88222", empresa: "Logística Global", idEmpresa: "800.211.998-3", motivo: "Cita especialista demorada", severidad: "Baja", estado: "Cerrado", canal: "SEGUROSSURA.COM.CO", fecha: "Ene 2025", descripcion: "Queja por demora de 3 semanas en cita con especialista en traumatología. El caso fue resuelto al reasignar la cita con un prestador de la misma red.", accion: "Caso cerrado. Seguimiento de satisfacción post-atención recomendado." },
+  { id: "#CAS-88223", empresa: "Textiles del Norte", idEmpresa: "800.999.123-1", motivo: "Pago a cuenta incorrecta", severidad: "Alta", estado: "Pendiente", canal: "LÍNEA DE ATENCIÓN", fecha: "May 2025", descripcion: "El pago de incapacidad fue realizado a una cuenta bancaria antigua del empleado. El trabajador solicita la devolución y nuevo pago a cuenta vigente. Monto: $1.800.000.", accion: "Reversar transferencia y re-procesar con datos bancarios actualizados." },
+  { id: "#CAS-88224", empresa: "Agropecuaria El Llano", idEmpresa: "901.001.555-8", motivo: "Derecho de petición sin respuesta", severidad: "Alta", estado: "Pendiente", canal: "ENTES DE CONTROL", fecha: "Jun 2025", descripcion: "Empleado radicó derecho de petición hace 18 días sin obtener respuesta. Solicita información sobre el estado de su incapacidad y el monto a recibir. Indica que interpondrá tutela la próxima semana.", accion: "Respuesta obligatoria en menos de 48h para evitar fallo de tutela." },
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -65,8 +69,12 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-export default function ResumenEjecutivo() {
+interface Props { onNavigate?: (v: View) => void; }
+
+export default function ResumenEjecutivo({ onNavigate }: Props) {
   const [alertas, setAlertas] = useState<Alertas | null>(null);
+  const [casoSeleccionado, setCasoSeleccionado] = useState<typeof CasosRecientes[0] | null>(null);
+  const [expandirTabla, setExpandirTabla] = useState(false);
 
   useEffect(() => {
     fetch("/data/alertas.json")
@@ -75,11 +83,57 @@ export default function ResumenEjecutivo() {
       .catch(() => {});
   }, []);
 
+  const casosVisibles = expandirTabla ? CasosRecientes : CasosRecientes.slice(0, 4);
+
   const forecastAlerta = alertas && alertas.forecast_proximo_mes > alertas.umbral_alerta;
   const forecastCritico = alertas && alertas.forecast_proximo_mes > alertas.umbral_critico;
 
   return (
     <div className="p-8 max-w-[1400px] mx-auto space-y-12">
+
+      {/* Modal detalle de caso */}
+      <Modal
+        open={!!casoSeleccionado}
+        onClose={() => setCasoSeleccionado(null)}
+        title={`Detalle de Caso — ${casoSeleccionado?.id}`}
+        width="max-w-xl"
+      >
+        {casoSeleccionado && (
+          <div className="space-y-5">
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                ["Empresa", casoSeleccionado.empresa],
+                ["NIT", casoSeleccionado.idEmpresa],
+                ["Canal", casoSeleccionado.canal],
+                ["Fecha apertura", casoSeleccionado.fecha],
+              ].map(([k, v]) => (
+                <div key={k} className="bg-brand-low rounded-lg p-3">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray1 mb-1">{k}</p>
+                  <p className="text-sm font-bold text-sura-navy">{v}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className={clsx(
+                "px-3 py-1 rounded-full text-xs font-bold",
+                casoSeleccionado.severidad === "Alta" ? "bg-red-50 text-red-700" :
+                casoSeleccionado.severidad === "Media" ? "bg-amber-50 text-amber-700" : "bg-green-50 text-green-700"
+              )}>Severidad: {casoSeleccionado.severidad}</span>
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-sura-frost text-sura-navy">
+                {casoSeleccionado.estado}
+              </span>
+            </div>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-brand-gray1 mb-2">Descripción del caso</p>
+              <p className="text-sm text-brand-muted leading-relaxed">{casoSeleccionado.descripcion}</p>
+            </div>
+            <div className="bg-sura-navy text-white rounded-xl p-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-sura-yellow mb-2">Acción recomendada</p>
+              <p className="text-sm leading-relaxed">{casoSeleccionado.accion}</p>
+            </div>
+          </div>
+        )}
+      </Modal>
 
       {/* Forecast Alert Banner */}
       {alertas && forecastAlerta && (
@@ -255,7 +309,10 @@ export default function ResumenEjecutivo() {
             ))}
           </div>
           
-          <button className="w-full py-3 rounded-lg border border-white/20 text-xs font-bold hover:bg-white/10 transition-colors flex items-center justify-center gap-2 relative z-10">
+          <button
+            onClick={() => onNavigate?.("tematico")}
+            className="w-full py-3 rounded-lg border border-white/20 text-xs font-bold hover:bg-white/10 transition-colors flex items-center justify-center gap-2 relative z-10"
+          >
             Ver detalle temático <ChevronRight size={14} />
           </button>
         </div>
@@ -268,8 +325,11 @@ export default function ResumenEjecutivo() {
             <h4 className="text-xl font-bold text-sura-navy">Gestión de Casos Críticos</h4>
             <p className="text-sm text-brand-muted">Últimas quejas con potencial de escalamiento legal</p>
           </div>
-          <button className="px-4 py-2 rounded-lg text-sura-action font-bold text-xs hover:bg-sura-frost transition-colors flex items-center gap-1.5">
-            Ver historial completo <ChevronRight size={14} />
+          <button
+            onClick={() => setExpandirTabla(v => !v)}
+            className="px-4 py-2 rounded-lg text-sura-action font-bold text-xs hover:bg-sura-frost transition-colors flex items-center gap-1.5"
+          >
+            {expandirTabla ? "Ver menos" : "Ver historial completo"} <ChevronRight size={14} className={expandirTabla ? "rotate-90" : ""} />
           </button>
         </div>
         
@@ -286,7 +346,7 @@ export default function ResumenEjecutivo() {
               </tr>
             </thead>
             <tbody className="divide-y divide-brand-gray3">
-              {CasosRecientes.map((caso) => (
+              {casosVisibles.map((caso) => (
                 <tr key={caso.id} className="hover:bg-brand-low/50 transition-colors group">
                   <td className="px-8 py-5 text-sm font-mono text-sura-action font-semibold italic">{caso.id}</td>
                   <td className="px-8 py-5">
@@ -314,7 +374,10 @@ export default function ResumenEjecutivo() {
                     </div>
                   </td>
                   <td className="px-8 py-5 text-center">
-                    <button className="p-2 rounded-full text-brand-gray1 hover:bg-sura-ice hover:text-sura-navy transition-all group-hover:scale-110">
+                    <button
+                      onClick={() => setCasoSeleccionado(caso)}
+                      className="p-2 rounded-full text-brand-gray1 hover:bg-sura-ice hover:text-sura-navy transition-all group-hover:scale-110"
+                    >
                       <Eye size={18} />
                     </button>
                   </td>
