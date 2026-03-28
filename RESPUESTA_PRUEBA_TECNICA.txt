@@ -1,0 +1,320 @@
+================================================================================
+  PRUEBA TÉCNICA — DATOS Y PROCESOS
+  ARL SURA · Análisis de Quejas por Incapacidad Temporal
+  Respondido por: Juan Felipe Arango
+  Repositorio: https://github.com/Vagarh/Arl_Test
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+CONTEXTO Y SUPUESTOS
+────────────────────────────────────────────────────────────────────────────────
+
+Datos utilizados:
+  - BD_Quejas_Analitica.xlsx · Hoja: "Incapacidad Temporal"
+  - 1,841 registros · Enero–Junio 2025
+  - 1,334 clientes únicos · 277 con más de una queja
+
+Supuestos asumidos:
+  1. La columna "Tipo" es constante (todos "QUEJA"), por lo que no aporta
+     discriminación. La fuente primaria de señal analítica es el texto libre
+     de la columna Descripción.
+  2. Se asume que escalar a "ENTES DE CONTROL" y/o tener ≥3 quejas en el
+     período son proxies válidas de insatisfacción severa (variable Y del modelo).
+  3. Los datos representan un solo proceso: pago de incapacidades temporales
+     por accidente laboral. No se mezclan otros subprocesos de ARL.
+  4. No se dispone de datos de resolución ni tiempos de cierre; el análisis
+     se basa exclusivamente en la queja inicial.
+  5. El modelo se entrena con datos Ene–May y se evalúa en Jun (split temporal
+     para evitar data leakage).
+
+
+────────────────────────────────────────────────────────────────────────────────
+PUNTO 1 · Identificación de Patrones y Causas Raíz
+────────────────────────────────────────────────────────────────────────────────
+
+HERRAMIENTAS: Python · pandas · spaCy/regex NLP · scikit-learn · SHAP
+ENTREGABLES:  notebooks/02_nlp_extraccion_temas.ipynb
+              notebooks/03_causas_raiz_ml.ipynb
+
+── Metodología ─────────────────────────────────────────────────────────────
+
+Se aplicó NLP sobre el texto libre de las descripciones con un enfoque en
+dos capas:
+
+  Capa 1 — Extracción de temas (sin supervisión)
+  ├── Limpieza regex: normalización Unicode, eliminación stopwords
+  ├── 12 patrones temáticos identificados por análisis léxico:
+  │     pago · incapacidad · radicación · respuesta · trámite · estado
+  │     tiempo · certificado · tutela · derecho de petición · monto · empresa
+  └── Cada queja se etiqueta con los temas presentes (multietiqueta)
+
+  Capa 2 — Causas raíz (ML explicable con SHAP)
+  ├── Random Forest con variable Y proxy: escalar a entes de control O ≥3 quejas
+  ├── SHAP values para cuantificar contribución porcentual de cada feature
+  └── Regresión logística como modelo de referencia interpretable
+
+── Hallazgos principales ───────────────────────────────────────────────────
+
+  TEMA MÁS FRECUENTE: Demoras en tiempo de respuesta y pago (presente en ~68%
+  de las quejas). El cliente no recibe información sobre el estado de su caso.
+
+  TOP 5 CAUSAS RAÍZ (por frecuencia e impacto SHAP):
+  ┌─────────────────────────────┬──────────┬────────────────────────────────┐
+  │ Causa                       │ % quejas │ Contribución al riesgo (SHAP)  │
+  ├─────────────────────────────┼──────────┼────────────────────────────────┤
+  │ 1. Demora en pago/trámite   │  68%     │ 42% del score de insatisfacción│
+  │ 2. Sin respuesta al cliente │  54%     │ 28%                            │
+  │ 3. Estado/seguimiento opaco │  41%     │ 15%                            │
+  │ 4. Problemas de radicación  │  29%     │ 8%                             │
+  │ 5. Montos incorrectos       │  18%     │ 7%                             │
+  └─────────────────────────────┴──────────┴────────────────────────────────┘
+
+  PATRÓN TEMPORAL: Pico de quejas en Marzo (370 quejas). Tendencia decreciente
+  Mayo–Junio puede indicar efecto estacional o mejora parcial del proceso.
+
+  PATRÓN CANAL: ENTES DE CONTROL (8.5% del volumen) concentra el 100% de las
+  quejas críticas. Los clientes que llegan a este canal ya escalaron por otros
+  medios sin solución.
+
+  PATRÓN CLIENTE: 277 clientes con recurrencia ≥2. El 21% de clientes recurrentes
+  representa el 38% del volumen total de quejas.
+
+
+────────────────────────────────────────────────────────────────────────────────
+PUNTO 2 · Métricas Clave
+────────────────────────────────────────────────────────────────────────────────
+
+HERRAMIENTAS: pandas · numpy · Exponential Smoothing (statsmodels)
+ENTREGABLES:  notebooks/01_eda_calidad_datos.ipynb
+              notebooks/05_prediccion_series_tiempo.ipynb
+              dashboard/public/data/alertas.json
+
+── Métricas de volumen ─────────────────────────────────────────────────────
+
+  · Total quejas período:         1,841
+  · Promedio mensual:             307 quejas/mes
+  · Mes pico:                     Marzo (370 quejas, +20% sobre promedio)
+  · Clientes únicos afectados:    1,334
+  · Tasa de recurrencia:          20.7% (277/1,334 clientes con >1 queja)
+
+── Métricas de severidad ───────────────────────────────────────────────────
+
+  · Tasa de escalamiento a entes de control: 8.5% (156 quejas)
+  · Tasa de clientes críticos (≥3 quejas):   6.3% (84 clientes)
+  · Score promedio de riesgo (modelo RF):    34.2/100
+  · Quejas clasificadas "Alto Riesgo":       ~27% del total
+
+── Métricas por canal ──────────────────────────────────────────────────────
+
+  · SEGUROSSURA.COM.CO:         55.2% del volumen → canal principal
+  · LINEA DE ATENCIÓN:          34.8% → segundo canal
+  · ENTES DE CONTROL:            8.5% → canal de mayor severidad
+  · PLATAFORMA DE ATENCIÓN:      1.5% → menor volumen
+
+── Métricas predictivas ────────────────────────────────────────────────────
+
+  · Forecast próximo mes (Jul 2025): 384 quejas (IC 80%: 351–417)
+  · Umbral de alerta definido:       369 quejas/mes
+  · Alerta activa:                   SÍ (forecast supera umbral)
+  · AUC-ROC del modelo clasificador: 0.81 (5-fold CV, split temporal)
+  · Precisión en clase positiva:     0.74
+
+
+────────────────────────────────────────────────────────────────────────────────
+PUNTO 3 · Dashboard para Toma de Decisiones
+────────────────────────────────────────────────────────────────────────────────
+
+>>> URL DE IMPLEMENTACIÓN:
+>>>
+>>>   http://localhost:3000
+>>>   (ejecutar: cd dashboard && npm install && npm run dev)
+>>>
+>>> REPOSITORIO (código fuente completo del dashboard):
+>>>
+>>>   https://github.com/Vagarh/Arl_Test/tree/main/dashboard
+
+HERRAMIENTAS: Next.js 14 · TypeScript · Tailwind CSS · Recharts
+ENTREGABLES:  dashboard/ (6 vistas implementadas)
+
+── Vistas del dashboard ────────────────────────────────────────────────────
+
+  1. RESUMEN EJECUTIVO
+     ├── KPIs: total quejas, clientes únicos, tasa recurrencia, % escalamiento
+     ├── Gráfico de barras: volumen mensual Ene–Jun 2025
+     └── Banner de alerta cuando forecast > umbral (384 > 369 = ALERTA ACTIVA)
+
+  2. ANÁLISIS TEMÁTICO
+     ├── Responde: ¿Qué tipo de quejas son más frecuentes?
+     ├── Ranking de 12 temas NLP con frecuencia y % del total
+     └── Heatmap tema × canal para cruzar qué canal genera qué tipo de queja
+
+  3. ANÁLISIS DE CANALES
+     ├── Responde: ¿Hay canales recurrentes?
+     ├── Distribución porcentual por canal (donut chart)
+     └── Tendencia mensual por canal (área apilada)
+
+  4. CLIENTES RECURRENTES
+     ├── Responde: ¿Hay clientes recurrentes con alta probabilidad de insatisfacción?
+     ├── Top 10 clientes por número de quejas con score de riesgo
+     └── Segmentación: Crítico (con escalamiento) vs. Recurrente vs. Normal
+
+  5. CLASIFICADOR EN VIVO
+     ├── Input de texto libre → clasificación instantánea
+     ├── Score de riesgo 0–100 y categoría (Bajo/Medio/Alto/Crítico)
+     └── Temas detectados en la descripción ingresada
+
+  6. PREDICCIÓN Y DINÁMICA DE SISTEMAS
+     ├── Responde: ¿Se pueden predecir clientes con alta probabilidad de insatisfacción?
+     ├── Forecast Jul–Oct 2025 con banda de confianza 80%
+     ├── Comparativa de 6 escenarios de intervención (dinámica de sistemas)
+     └── Análisis de sensibilidad tornado: parámetros más críticos del sistema
+
+
+────────────────────────────────────────────────────────────────────────────────
+PUNTO 4 · Flujo Automatizado
+────────────────────────────────────────────────────────────────────────────────
+
+HERRAMIENTAS: Apache Airflow · Python · joblib · cron/Task Scheduler
+ENTREGABLES:  pipeline/ (dos escenarios implementados)
+
+  REPOSITORIO (código fuente del pipeline):
+  https://github.com/Vagarh/Arl_Test/tree/main/pipeline
+
+── Escenario A: Airflow + Next.js (equipo técnico) ────────────────────────
+
+  Archivo: pipeline/airflow_nextjs/dags/dag_quejas_semanal.py
+
+  Frecuencia: Cada lunes 6:00 AM (Bogotá)
+  Duración estimada: 3–4 minutos
+
+  Flujo de tareas:
+  ┌─────────┐   ┌─────────────┐   ┌────────────┐   ┌──────────────┐
+  │ Extraer │──▶│ Transformar │──▶│ Clasificar │──▶│ Exportar JSON│
+  └─────────┘   └─────────────┘   └────────────┘   └──────┬───────┘
+                                                           │
+                                               ┌───────────▼──────────┐
+                                               │   Branch: ¿Alerta?   │
+                                               └────┬─────────┬────────┘
+                                               [>20% Alto] [Normal]
+                                                    │              │
+                                               Email Alert    Sin acción
+
+  a) Cargar nuevos datos:    lee Excel desde ruta configurable (Variable Airflow)
+  b) Actualizar dashboard:   exporta 3 JSON a dashboard/public/data/ → Next.js
+                             sirve datos frescos sin redeploy ni intervención
+  c) Clasificar nuevas quejas: modelo RF (.joblib) → prob_riesgo + score_categoria
+                               fallback heurístico si el modelo no está disponible
+
+── Escenario B: Python + Power BI (equipo analítico) ──────────────────────
+
+  Archivo: pipeline/powerbi/scripts/pipeline_powerbi.py
+
+  Ejecución: cron (Linux/Mac) o Task Scheduler (Windows), lunes 6:00 AM
+  Salidas:   fact_quejas.csv · dim_clientes.csv · dim_tiempo_mensual.csv
+             dim_canal.csv · dim_temas.csv · sura_quejas_dashboard.xlsx
+
+  a) Cargar nuevos datos:    idem extracción del Escenario A
+  b) Actualizar dashboard:   CSV guardados en OneDrive/SharePoint → Power BI
+                             Service programa refresh automático (semanal)
+  c) Clasificar nuevas quejas: mismo modelo RF, columna score_riesgo_pct en CSV
+
+  Comando de ejecución manual:
+  python pipeline/powerbi/scripts/pipeline_powerbi.py --input req/BD_Quejas.xlsx
+
+
+────────────────────────────────────────────────────────────────────────────────
+PUNTO 5 · Metodología para Implementar Herramienta de Optimización de Pagos
+────────────────────────────────────────────────────────────────────────────────
+
+HERRAMIENTAS: Dinámica de Sistemas (ODE) · BPM · Python scipy
+ENTREGABLES:  notebooks/06_dinamica_sistemas.ipynb
+              docs/plan_trabajo.md
+              pipeline/docs/arquitectura_flujo.md
+
+── Marco metodológico ──────────────────────────────────────────────────────
+
+Se combina Dinámica de Sistemas con BPM (Business Process Management) para
+modelar el proceso de pagos como un sistema con stocks, flujos y bucles de
+retroalimentación, y luego diseñar la herramienta sobre ese modelo.
+
+FASE 1 — As-Is: Diagnóstico del proceso actual (semanas 1–2)
+  · Mapear el proceso BPM actual: radicación → validación → aprobación → pago
+  · Identificar cuellos de botella usando datos de quejas (ya hecho en Punto 1)
+  · Cuantificar tiempos de ciclo y tasas de error por etapa
+  · Modelar el backlog de casos como sistema dinámico:
+      dB/dt = entrada_quejas - tasa_resolución × (1 - tasa_error) × capacidad
+    Resultado AS-IS: backlog de 169 casos al mes 12 sin intervención
+
+FASE 2 — To-Be: Diseño de la herramienta (semanas 3–6)
+  · Automatización de tareas manuales identificadas:
+      - Validación documental automática (OCR + reglas)
+      - Liquidación paramétrica de incapacidades (días × salario base)
+      - Notificación proactiva al cliente en cada cambio de estado
+  · Mejora de trazabilidad:
+      - ID único de transacción desde radicación hasta pago
+      - Audit trail inmutable (blockchain o registro en BD con hash)
+  · Reducción de tiempos:
+      - SLA automatizado: alerta si caso supera N días sin movimiento
+      - Priorización automática por score de riesgo (modelo del Punto 1)
+  · Cumplimiento normativo:
+      - Reglas codificadas: Decreto 1072/2015, Circular 049 Supersalud
+      - Validación automática antes de cada pago
+
+FASE 3 — Simulación de escenarios (modelado en NB06)
+  Los 6 escenarios simulados con el modelo ODE muestran:
+  ┌──────────────────────────────────────┬──────────────────────────┐
+  │ Escenario                            │ Backlog mes 12 (casos)   │
+  ├──────────────────────────────────────┼──────────────────────────┤
+  │ AS-IS (sin cambios)                  │ 169                      │
+  │ +20% capacidad                       │ 112  (-34%)              │
+  │ -30% tasa de error                   │ 98   (-42%)              │
+  │ +20% cap + -30% error                │ 61   (-64%)              │
+  │ Automatización básica (TO-BE parcial)│ 45   (-73%)              │
+  │ TO-BE completo (automatización total)│ 21   (-88%)              │
+  └──────────────────────────────────────┴──────────────────────────┘
+  → La automatización completa reduce el backlog 88% en 12 meses.
+
+FASE 4 — Implementación y medición (meses 3–12)
+  · Piloto con el 20% de los prestadores de mayor volumen
+  · KPIs de seguimiento: tiempo promedio de pago · tasa de error · NPS
+  · Retroalimentación al modelo clasificador con nuevos datos
+
+── Entregables de valor del proyecto ───────────────────────────────────────
+
+  ┌────┬─────────────────────────────────┬──────────────────────────────────┐
+  │ #  │ Entregable                      │ Ubicación en el repositorio      │
+  ├────┼─────────────────────────────────┼──────────────────────────────────┤
+  │ 1  │ Análisis EDA + calidad de datos │ notebooks/01_eda_calidad_datos   │
+  │ 2  │ Extracción de temas NLP         │ notebooks/02_nlp_extraccion_temas│
+  │ 3  │ Causas raíz + ML explicable     │ notebooks/03_causas_raiz_ml      │
+  │ 4  │ Clasificador con SHAP           │ notebooks/04_modelo_clasificacion│
+  │ 5  │ Forecast series de tiempo       │ notebooks/05_prediccion_series   │
+  │ 6  │ Dinámica de sistemas (ODE)      │ notebooks/06_dinamica_sistemas   │
+  │ 7  │ Dashboard interactivo           │ dashboard/  (ver URL arriba)     │
+  │ 8  │ Pipeline Airflow + standalone   │ pipeline/airflow_nextjs/         │
+  │ 9  │ Pipeline Power BI               │ pipeline/powerbi/                │
+  │ 10 │ Arquitectura y documentación    │ pipeline/docs/arquitectura_flujo │
+  └────┴─────────────────────────────────┴──────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────
+RESUMEN DE HERRAMIENTAS UTILIZADAS
+────────────────────────────────────────────────────────────────────────────────
+
+  Análisis de datos:     Python 3.9+ · pandas · numpy
+  NLP:                   regex · unicodedata (sin dependencias externas)
+  Machine Learning:      scikit-learn (Random Forest · Logistic Regression)
+  Explicabilidad:        SHAP · coeficientes de regresión logística
+  Series de tiempo:      statsmodels (Exponential Smoothing)
+  Dinámica de sistemas:  scipy.integrate.odeint (modelo ODE personalizado)
+  Dashboard:             Next.js 14 · TypeScript · Tailwind CSS · Recharts
+  Pipeline Escenario A:  Apache Airflow 2.7 · Docker
+  Pipeline Escenario B:  Python scripts · Power BI Service · OneDrive
+  Control de versiones:  Git · GitHub (https://github.com/Vagarh/Arl_Test)
+  Entorno de ejecución:  Google Colab (notebooks) + local (dashboard/pipeline)
+
+
+================================================================================
+  Repositorio completo: https://github.com/Vagarh/Arl_Test
+================================================================================
