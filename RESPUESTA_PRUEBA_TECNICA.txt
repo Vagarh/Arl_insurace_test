@@ -2,7 +2,7 @@
   PRUEBA TÉCNICA — DATOS Y PROCESOS
   ARL SURA · Análisis de Quejas por Incapacidad Temporal
   Respondido por: Juan Felipe Arango
-  Repositorio: https://github.com/Vagarh/Arl_Test
+  Repositorio: https://github.com/Vagarh/Arl_insurace_test
 ================================================================================
 
 
@@ -127,12 +127,12 @@ PUNTO 3 · Dashboard para Toma de Decisiones
 
 >>> URL DE IMPLEMENTACIÓN:
 >>>
->>>   http://localhost:3000
->>>   (ejecutar: cd dashboard && npm install && npm run dev)
+>>>   https://dashboard-xi-nine-20.vercel.app
+
 >>>
 >>> REPOSITORIO (código fuente completo del dashboard):
 >>>
->>>   https://github.com/Vagarh/Arl_Test/tree/main/dashboard
+>>>   https://github.com/Vagarh/Arl_insurace_test/tree/main/dashboard
 
 HERRAMIENTAS: Next.js 14 · TypeScript · Tailwind CSS · Recharts
 ENTREGABLES:  dashboard/ (6 vistas implementadas)
@@ -179,7 +179,7 @@ HERRAMIENTAS: Apache Airflow · Python · joblib · cron/Task Scheduler
 ENTREGABLES:  pipeline/ (dos escenarios implementados)
 
   REPOSITORIO (código fuente del pipeline):
-  https://github.com/Vagarh/Arl_Test/tree/main/pipeline
+  https://github.com/Vagarh/Arl_insurace_test/tree/main/pipeline
 
 ── Escenario A: Airflow + Next.js (equipo técnico) ────────────────────────
 
@@ -311,10 +311,10 @@ RESUMEN DE HERRAMIENTAS UTILIZADAS
   Dashboard:             Next.js 14 · TypeScript · Tailwind CSS · Recharts
   Pipeline Escenario A:  Apache Airflow 2.7 · Docker
   Pipeline Escenario B:  Python scripts · Power BI Service · OneDrive
-  Control de versiones:  Git · GitHub (https://github.com/Vagarh/Arl_Test)
+  Control de versiones:  Git · GitHub (https://github.com/Vagarh/Arl_insurace_test)
   Entorno de ejecución:  Google Colab (notebooks) + local (dashboard/pipeline)
 
 
 ================================================================================
-  Repositorio completo: https://github.com/Vagarh/Arl_Test
+  Repositorio completo: https://github.com/Vagarh/Arl_insurace_test
 ================================================================================
