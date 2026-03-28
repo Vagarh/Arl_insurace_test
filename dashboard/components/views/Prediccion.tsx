@@ -38,22 +38,22 @@ interface SimResumen {
 
 // Resultados de simulación ODE por escenario al mes 12 (NB06)
 const escenarios = [
-  { nombre: "AS-IS",                    backlog: 169, color: "#ef4444", reduccion: 0 },
-  { nombre: "I3: +Capacidad",           backlog: 140, color: "#f97316", reduccion: 17 },
-  { nombre: "I4: Clasificador",         backlog: 148, color: "#eab308", reduccion: 12 },
-  { nombre: "I1: Portal tracking",      backlog: 110, color: "#0049cb", reduccion: 35 },
-  { nombre: "I2: Tracking + notif.",    backlog: 68,  color: "#085efe", reduccion: 60 },
-  { nombre: "TO-BE completo",           backlog: 21,  color: "#00216e", reduccion: 88 },
+  { nombre: "Sin cambios",                      detalle: "Situación actual sin intervención",          backlog: 169, color: "#ef4444", reduccion: 0  },
+  { nombre: "Más capacidad de resolución",      detalle: "Contratar o reasignar analistas",             backlog: 140, color: "#f97316", reduccion: 17 },
+  { nombre: "Clasificador automático",          detalle: "IA prioriza las quejas más urgentes",         backlog: 148, color: "#eab308", reduccion: 12 },
+  { nombre: "Portal de seguimiento",            detalle: "El cliente puede ver el estado de su caso",   backlog: 110, color: "#0049cb", reduccion: 35 },
+  { nombre: "Portal + notificaciones",          detalle: "Avisos proactivos en cada cambio de estado",  backlog: 68,  color: "#085efe", reduccion: 60 },
+  { nombre: "Plan completo (todas las mejoras)",detalle: "Portal + Notif. + Fast-track + Clasificador", backlog: 21,  color: "#00216e", reduccion: 88 },
 ];
 
-// Análisis de sensibilidad (tornado) — variación ±20% sobre parámetro
+// Análisis de sensibilidad — qué palancas mueven más el resultado
 const sensibilidad = [
-  { parametro: "Entrada de quejas",    impacto: 42 },
-  { parametro: "Capacidad resolución", impacto: 28 },
-  { parametro: "Retroalimentación",    impacto: 18 },
-  { parametro: "Tasa escalamiento",    impacto: 12 },
-  { parametro: "Insatisfacción",       impacto: 7  },
-  { parametro: "Recuperación",         impacto: 4  },
+  { parametro: "Reducir la entrada de quejas",      detalle: "Portal de seguimiento evita que el cliente tenga que quejarse", impacto: 42 },
+  { parametro: "Aumentar capacidad de resolución",  detalle: "Más analistas o procesos más rápidos",                          impacto: 28 },
+  { parametro: "Mejorar retroalimentación",         detalle: "Comunicar al cliente el avance de su caso",                     impacto: 18 },
+  { parametro: "Reducir escalamientos",             detalle: "Resolver antes de que llegue a Entes de Control",               impacto: 12 },
+  { parametro: "Reducir insatisfacción",            detalle: "Resolver de fondo, no solo responder",                          impacto: 7  },
+  { parametro: "Mejorar recuperación",              detalle: "Reconquistar clientes que ya se quejaron",                      impacto: 4  },
 ];
 
 const MesLabel: Record<string, string> = {
@@ -97,10 +97,15 @@ const CustomForecastTooltip = ({ active, payload, label }: any) => {
 const CustomScenarioTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   const d = payload[0];
+  const escenario = escenarios.find(e => e.nombre === label);
   return (
-    <div className="bg-white border border-brand-gray3 rounded-xl p-3 shadow-card-lg text-xs">
+    <div className="bg-white border border-brand-gray3 rounded-xl p-3 shadow-card-lg text-xs max-w-[220px]">
       <p className="font-black text-sura-navy mb-1">{label}</p>
-      <p className="text-brand-muted">Backlog mes 12: <span className="font-black text-sura-navy">{d.value} quejas</span></p>
+      {escenario && <p className="text-brand-gray1 mb-2 leading-relaxed">{escenario.detalle}</p>}
+      <p className="text-brand-muted">Casos pendientes al mes 12: <span className="font-black text-sura-navy">{d.value}</span></p>
+      {escenario && escenario.reduccion > 0 && (
+        <p className="text-green-600 font-black mt-1">↓ {escenario.reduccion}% menos que hoy</p>
+      )}
     </div>
   );
 };
@@ -122,17 +127,31 @@ export default function Prediccion() {
     <div className="p-8 max-w-[1400px] mx-auto space-y-10 animate-page-in">
 
       {/* Header */}
-      <div>
-        <span className="badge-blue text-[10px] font-black uppercase tracking-widest mb-3 inline-block">
-          Predicción & Dinámica de Sistemas
-        </span>
-        <h1 className="text-4xl font-black text-sura-navy tracking-tighter">
-          Forecast y <span className="text-sura-action">Simulación</span>
-        </h1>
-        <p className="text-sm text-brand-muted font-medium mt-2 max-w-xl">
-          Proyección de volumen de quejas (Jul–Sep 2025) + simulación de impacto de intervenciones
-          mediante modelo de Dinámica de Sistemas (ODEs calibradas con datos reales).
-        </p>
+      <div className="flex items-start justify-between gap-6 flex-wrap">
+        <div>
+          <span className="badge-blue text-[10px] font-black uppercase tracking-widest mb-3 inline-block">
+            Proyección y Escenarios
+          </span>
+          <h1 className="text-4xl font-black text-sura-navy tracking-tighter">
+            ¿Qué viene y <span className="text-sura-action">qué podemos hacer?</span>
+          </h1>
+          <p className="text-sm text-brand-muted font-medium mt-2 max-w-xl">
+            Proyección de quejas para los próximos meses y comparativa de cuánto mejora cada acción posible.
+            Pasa el cursor sobre cada barra para ver la explicación.
+          </p>
+        </div>
+        <a
+          href="/reports/informe_con_graficas.pdf"
+          download
+          className="flex items-center gap-2 px-4 py-2.5 bg-sura-navy text-white rounded-xl text-sm font-bold hover:bg-sura-blue transition-colors shrink-0"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Descargar informe completo (PDF)
+        </a>
       </div>
 
       {/* KPI Row */}
@@ -335,10 +354,11 @@ export default function Prediccion() {
       {/* Escenarios Dinámica de Sistemas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-7 card animate-fade-up">
-          <h3 className="text-xl font-bold text-sura-navy mb-1">Simulación de Escenarios</h3>
-          <p className="text-sm text-brand-muted mb-6">
-            Backlog de quejas al mes 12 según intervención — modelo ODE calibrado (NB06)
+          <h3 className="text-xl font-bold text-sura-navy mb-1">¿Cuánto mejora cada acción?</h3>
+          <p className="text-sm text-brand-muted mb-1">
+            Casos de quejas pendientes al cabo de 12 meses según qué se implemente.
           </p>
+          <p className="text-xs text-brand-gray1 mb-6">Menos casos = mejor resultado. Pasa el cursor sobre cada barra para ver la explicación.</p>
           <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -352,7 +372,7 @@ export default function Prediccion() {
                 <YAxis
                   type="category"
                   dataKey="nombre"
-                  width={150}
+                  width={200}
                   tick={{ fill: "#00216e", fontSize: 10, fontWeight: 700 }}
                   axisLine={false}
                   tickLine={false}
@@ -367,41 +387,43 @@ export default function Prediccion() {
             </ResponsiveContainer>
           </div>
           <p className="text-[10px] text-brand-gray1 mt-4 italic">
-            AS-IS converge a ~169 quejas en backlog. TO-BE completo (portal + notif. + fast-track + clasificador) lo reduce a ~21 quejas (−88%).
+            Sin acción: ~169 casos pendientes al año. Con el plan completo: ~21 casos (−88%). La diferencia la hacen el portal de seguimiento y las notificaciones proactivas.
           </p>
         </div>
 
         {/* Tornado de sensibilidad */}
         <div className="lg:col-span-5 card animate-fade-up">
-          <h3 className="text-lg font-bold text-sura-navy mb-1">Análisis de Sensibilidad</h3>
+          <h3 className="text-lg font-bold text-sura-navy mb-1">¿Qué palanca mueve más el resultado?</h3>
           <p className="text-sm text-brand-muted mb-6">
-            Impacto sobre el backlog ante variación ±20% en cada parámetro
+            Qué tanto cambia el número de casos pendientes según cada tipo de acción
           </p>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {sensibilidad.map((s, i) => (
               <div key={s.parametro} className="space-y-1">
                 <div className="flex justify-between text-xs">
-                  <span className="font-medium text-brand-muted">{s.parametro}</span>
+                  <span className="font-semibold text-brand-charcoal">{s.parametro}</span>
                   <span className="font-black text-sura-navy">{s.impacto}%</span>
                 </div>
                 <div className="h-2 w-full bg-brand-gray3 rounded-full overflow-hidden">
                   <div
-                    className="h-full rounded-full transition-all duration-700"
+                    className="h-full rounded-full"
                     style={{
                       width: `${s.impacto}%`,
                       backgroundColor: i === 0 ? "#ef4444" : i === 1 ? "#0049cb" : "#085efe",
                       opacity: 1 - i * 0.12,
+                      transition: "width 700ms ease",
                     }}
                   />
                 </div>
+                <p className="text-[10px] text-brand-gray1 leading-relaxed">{s.detalle}</p>
               </div>
             ))}
           </div>
           <div className="mt-6 p-4 bg-sura-frost rounded-xl border border-brand-gray3">
             <p className="text-xs text-brand-muted leading-relaxed">
-              <span className="font-black text-sura-navy">Insight clave:</span> La tasa de entrada de quejas
-              es el parámetro más sensible del sistema. Intervenciones que reducen la entrada (portal de tracking)
-              tienen mayor impacto estructural que aumentar la capacidad de resolución.
+              <span className="font-black text-sura-navy">Conclusión:</span> La acción más poderosa es
+              reducir la razón por la que los clientes se quejan en primer lugar —
+              el portal de seguimiento elimina la queja de "no sé qué pasó con mi caso".
             </p>
           </div>
         </div>
