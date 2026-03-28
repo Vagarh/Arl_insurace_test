@@ -1,0 +1,35 @@
+Prueba técnica Datos y Procesos
+
+Una empresa de servicio de pagos a prestadores de servicios de salud por atención de accidentes laborales con más de 500.000 clientes activos ha identificado una caída en la satisfacción del cliente durante los últimos 12 meses. A pesar de múltiples esfuerzos en atención al cliente, los indicadores de experiencia han disminuido y las quejas han aumentado
+
+La empresa cuenta con una base de datos de quejas que incluye:
+	•	Fecha de apertura del caso
+	•	Descripción del problema
+	•	Tipo de solicitud
+	•	Nombre del cliente
+	•	Canal de comunicación
+
+Partiendo de esto:
+	•	Identifica patrones y causas raíz de la insatisfacción del cliente.
+	•	Genera las métricas claves desde la información del numeral b y que estén alineados con el numeral a. 
+	•	Diseña un dashboard que permita la toma de decisiones para el proceso con lo identificado en el numeral a y b. 
+	•	Diseña un flujo automatizado que permita: 
+	•	Cargar nuevos datos de quejas semanalmente
+	•	Actualizar métricas y dashboard sin intervención manual
+	•	Clasificar automáticamente nuevas quejas usando el modelo propuesto
+	•	Desde el flujo del proceso y los datos anteriores, ha decidido Implementar una nueva herramienta tecnológica para optimizar el proceso de pagos a prestadores de servicios de salud, esta herramienta busca automatizar tareas manuales, mejorar la trazabilidad de las transacciones, reducir tiempos de respuesta y asegurar el cumplimiento normativo.
+	•	¿Qué metodologías y entregables utilizarías para lograr los entregables de valor en el proyecto? 
+
+
+
+Ten en cuenta:
+	•	Menciona las herramientas utilizadas para resolver cada uno de los puntos
+	•	Realiza las suposiciones necesarias
+	•	El dashboard debe responder preguntas como:
+	•	¿Qué tipo de quejas son más frecuentes?
+	•	¿Hay clientes o canales recurrentes?
+	•	¿desde los datos se pueden predecir clientes con alta probabilidad de insatisfacción?
+
+Muchos éxitos y ¡gracias por participar!
+
+
