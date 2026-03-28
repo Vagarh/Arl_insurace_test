@@ -1,9 +1,8 @@
 "use client";
 
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ReferenceLine, BarChart, Bar, Cell,
-  Line
+  ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, ReferenceLine, BarChart, Bar, Cell, Line
 } from "recharts";
 import { TrendingUp, AlertTriangle, Users, Activity } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -218,7 +217,7 @@ export default function Prediccion() {
 
           <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={forecast} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+              <ComposedChart data={forecast} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="gradCI" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%"  stopColor="#085efe" stopOpacity={0.15} />
@@ -291,7 +290,7 @@ export default function Prediccion() {
                   strokeDasharray="4 3"
                   dot={{ r: 4, fill: "#f87171", strokeWidth: 2, stroke: "#fff" }}
                 />
-              </AreaChart>
+              </ComposedChart>
             </ResponsiveContainer>
           </div>
 
